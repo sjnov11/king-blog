@@ -11,6 +11,10 @@ const (
 	WebRoot = "./web_root/"
 )
 
+/*
+	r: Request User contents
+	w: Writer to Requester Browser
+*/
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	// when request is root, send index.html
 	// otherwise, send the file
@@ -40,7 +44,9 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("(rootHandler) The requested file has been sent: ", WebRoot+path)
 }
 
+// Main function
 func main() {
+	// URI Handler
 	http.HandleFunc("/", rootHandler)
 	log.Fatal(http.ListenAndServe(":80", nil))
 }
