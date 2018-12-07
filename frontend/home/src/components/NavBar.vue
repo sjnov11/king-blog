@@ -1,50 +1,44 @@
 <template>
-  <b-navbar class="navbar-custom" toggleable="md" type="light" variant="light">
-    <b-navbar-brand to="#">SEUNGJUN OH</b-navbar-brand>
-    <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+  <div class="navbar-container">
+    <b-navbar class="navbar-custom" toggleable="lg" type="light" variant="light">
+      <b-navbar-brand to="/">SEUNGJUN OH</b-navbar-brand>
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
 
-    <b-collapse is-nav id="nav_collapse">
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item href="#">Blog</b-nav-item>
-        <b-nav-item href="#">About</b-nav-item>
-        <b-nav-form class="navbar-search">
-          <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
-        </b-nav-form>
-      </b-navbar-nav>
-    </b-collapse>
-
+      <b-collapse is-nav id="nav_collapse">
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item to="/blog/">Blog</b-nav-item>
+          <b-nav-item to="/about/">About</b-nav-item>
+          <b-nav-form class="navbar-search">
+            <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
+            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+          </b-nav-form>
+          <br>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
     <!-- avatar img container -->
     <div class="avatar-container">
-      <div class="avatar-img-border" v-show="viewAvatar">
+      <div class="avatar-img-border">
         <a title="Seungjun Oh" to="/">
-          <img class="avatar-img" src="https://sookocheff.com/img/avatar.png" alt="Seungjun Oh">
+          <img class="avatar-img" src="../assets/avatar.jpg" alt="Seungjun Oh">
         </a>
       </div>
     </div>
-  </b-navbar>
+  </div>
 </template>
   
 <script>
 export default {
   name: "NavBar",
-  props: {},
-  data() {
-    return {
-      viewAvatar: true
-    };
-  },
-  methods: {
-    hideAvatar() {
-      this.viewAvatar = false;
-      this.console.log("Test");
-    }
-  }
+  props: {}
 };
 </script>
 
 <style scoped>
+.navbar-container {
+  margin-bottom: 100px;
+}
 .navbar-custom {
   padding: 25px 15px;
   margin-bottom: 20px;
@@ -60,13 +54,15 @@ export default {
   color: rgba(0, 0, 0, 0.5) !important;
 }
 .navbar-search {
+  padding-left: 20px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .avatar-container {
   width: 100px;
-  margin-top: 50px;
+  height: 100px;
+  margin-top: -60px;
   opacity: 1;
   position: absolute;
   left: 50%;
@@ -74,6 +70,7 @@ export default {
 
 .avatar-container .avatar-img-border {
   width: 100%;
+  height: 100%;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   -webkit-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   -moz-box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
@@ -91,5 +88,6 @@ img {
   display: block;
   margin: auto;
   max-width: 100%;
+  max-height: 100%;
 }
 </style>

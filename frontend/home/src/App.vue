@@ -3,11 +3,11 @@
     <NavBar/>
     <div>
       <p>
-        <router-link to="/">About</router-link>&nbsp;
-        <router-link to="/blog">Blog</router-link>&nbsp;
+        <router-link to="/about">About</router-link>&nbsp;
+        <router-link to="/blog/">Blog</router-link>&nbsp;
       </p>
       <p>
-        <router-view></router-view>
+        <router-view/>
       </p>
     </div>
 
