@@ -7,7 +7,10 @@
 
 <script>
 export default {
-  name: "PageTitle"
+  name: "PageTitle",
+  prop: {
+    title: String
+  }
 };
 </script>
 

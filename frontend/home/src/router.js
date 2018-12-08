@@ -10,6 +10,11 @@ export default new Router({
   mode: "history",
   routes: [
     {
+      path: "/",
+      name: "Home",
+      component: About
+    },
+    {
       path: "/about",
       name: "About",
       component: About

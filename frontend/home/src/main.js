@@ -6,7 +6,39 @@ import BootStrapVue from "bootstrap-vue";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faCoffee,
+  faLaptop,
+  faCircle,
+  faSquare,
+  faUserGraduate,
+  faHome,
+  faFileAlt,
+  faEnvelope
+} from "@fortawesome/free-solid-svg-icons";
+import { faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import {
+  FontAwesomeIcon,
+  FontAwesomeLayers
+} from "@fortawesome/vue-fontawesome";
+
 Vue.use(BootStrapVue);
+Vue.config.productionTip = false;
+
+library.add(
+  faCoffee,
+  faLaptop,
+  faCircle,
+  faSquare,
+  faUserGraduate,
+  faHome,
+  faFileAlt,
+  faEnvelope
+);
+library.add(faGithub, faTwitter);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
+Vue.component("font-awesome-layers", FontAwesomeLayers);
 Vue.config.productionTip = false;
 
 new Vue({

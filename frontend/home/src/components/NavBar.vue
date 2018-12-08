@@ -10,8 +10,14 @@
           <b-nav-item to="/blog">Blog</b-nav-item>
           <b-nav-item to="/about">About</b-nav-item>
           <b-nav-form class="navbar-search">
-            <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+            <b-form-input
+              size="sm"
+              class="mr-sm-2"
+              type="text"
+              placeholder="Not supported"
+              disabled
+            />
+            <b-button size="sm" class="my-2 my-sm-0" type="submit" disabled>Search</b-button>
           </b-nav-form>
           <br>
         </b-navbar-nav>
@@ -48,7 +54,9 @@ export default {
   border-bottom: 1px solid #eaeaea;
   font-weight: 800;
 }
-
+.navbar-brand {
+  color: #404040 !important;
+}
 .navbar-brand:hover,
 .navbar-brand:focus {
   color: rgba(0, 0, 0, 0.5) !important;
