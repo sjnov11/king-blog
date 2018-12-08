@@ -1,11 +1,11 @@
 <template>
-  <p>About Component</p>
+  <div>hi</div>
 </template>
 
 <script>
 export default {
-  name: 'About'
-}
+  name: "About"
+};
 </script>
 
 <style scoped>

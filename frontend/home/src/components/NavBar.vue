@@ -7,8 +7,8 @@
       <b-collapse is-nav id="nav_collapse">
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/blog/">Blog</b-nav-item>
-          <b-nav-item to="/about/">About</b-nav-item>
+          <b-nav-item to="/blog">Blog</b-nav-item>
+          <b-nav-item to="/about">About</b-nav-item>
           <b-nav-form class="navbar-search">
             <b-form-input size="sm" class="mr-sm-2" type="text" placeholder="Search"/>
             <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
@@ -37,7 +37,7 @@ export default {
 
 <style scoped>
 .navbar-container {
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 }
 .navbar-custom {
   padding: 25px 15px;
