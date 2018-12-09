@@ -25,7 +25,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println(path)
 	source, err := ioutil.ReadFile(WebRoot + path)
 	if err != nil {
-		source, err = ioutil.ReadFile(WebRoot + path + "index.html")
+		source, err = ioutil.ReadFile(WebRoot + path + "/index.html")
 		if err != nil {
 			// Redirect to 404 page
 			w.WriteHeader(http.StatusNotFound)

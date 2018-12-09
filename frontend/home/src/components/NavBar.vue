@@ -27,7 +27,7 @@
     <div class="avatar-container">
       <div class="avatar-img-border">
         <a title="Seungjun Oh" to="/">
-          <img class="avatar-img" src="../assets/avatar.jpg" alt="Seungjun Oh">
+          <img class="avatar-img" src="../../public/avatar.jpg" alt="Seungjun Oh">
         </a>
       </div>
     </div>
