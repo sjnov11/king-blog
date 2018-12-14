@@ -5,24 +5,18 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"path/filepath"
 )
 
 const (
+	// Root directory
 	WebRoot = "./web_root/"
 )
 
-/*
-	r: Request User contents
-	w: Writer to Requester Browser
-*/
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	// when request is root, send index.html
-	// otherwise, send the file
-
 	log.Println(r.URL.Path)
 
 	path := r.URL.Path[len("/"):]
-	log.Println(path)
 	source, err := ioutil.ReadFile(WebRoot + path)
 	if err != nil {
 		source, err = ioutil.ReadFile(WebRoot + path + "/index.html")
@@ -35,8 +29,9 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// It doesn't load css if content type is not set
 	// Set content type as css if required file's extension is css
-	if len(path) >= 4 && path[len(path)-4:] == ".css" {
+	if filepath.Ext(path) == ".css" {
 		w.Header().Set("Content-Type", "text/css")
 	}
 
@@ -46,7 +41,6 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 // Main function
 func main() {
-	// URI Handler
 	http.HandleFunc("/", rootHandler)
 	log.Fatal(http.ListenAndServe(":80", nil))
 }
