@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	// Root directory
+	// WebRoot : Root directory
 	WebRoot = "./web_root/"
 )
 
