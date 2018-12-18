@@ -32,15 +32,13 @@ func getYAML(post []byte) (string, error) {
 
 // Return value of key in yaml. Error is not nil if can't find key.
 func getValue(key string, yaml string) (string, error) {
-	hashIdx := strings.Index(yaml, key)
-	if hashIdx == -1 {
-		return "", fmt.Errorf("Can not find key: %s", key)
+	hashIdx := strings.Index(yaml, "\n"+key+":") + 1
+	if hashIdx == 0 {
+		return "", fmt.Errorf("Can not find key(%s)", key)
 	}
 	begin := strings.Index(yaml[hashIdx:], ":") + 1
 	end := strings.Index(yaml[hashIdx:], "\n")
-	if begin >= end {
-		return "", nil
-	}
+
 	value := yaml[hashIdx+begin : hashIdx+end]
 	value = strings.Trim(value, "\" ")
 	return value, nil
@@ -84,11 +82,14 @@ func parse(post []byte) ([]byte, error) {
 		log.Println("[parse] ", err)
 		return nil, errors.New("Fail to parse post")
 	}
+
 	yamlMap, err := buildKeyValueMap(yaml)
+	fmt.Println(yamlMap["title"])
 	if err != nil {
 		log.Println("[parse] ", err)
 		return nil, errors.New("Fail to parse post")
 	}
+
 	var jsonStrings []string
 	for _, key := range keys {
 		value := yamlMap[key]

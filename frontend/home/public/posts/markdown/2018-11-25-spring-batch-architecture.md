@@ -2,11 +2,10 @@
 layout: post
 title: "[Spring Batch] Architecture"
 slug: "spring-batch-architecture"
-date: 2018-11-26 17:00:00 +0900
-categories: blog/spring
-tags:
-- spring
-- batch
+date: 2018-11-25
+abstract: king
+categories: spring
+tags: [spring, batch]
 ---
 
 # [Spring Batch] Architecture

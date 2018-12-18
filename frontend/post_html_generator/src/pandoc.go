@@ -2,18 +2,21 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"log"
 	"os/exec"
 )
 
+const (
+	PostTemplatePath = "./assets/template/post.html"
+	PostHTMLDir      = "../home/public/posts/"
+)
+
 func generateHTML(path string, slug string) error {
-	fmt.Println(slug)
 	cmd := exec.Command("pandoc",
 		path, "-f", "markdown",
 		"-t", "html", "-s", "-o",
-		PostDir+slug+".html", "--mathjax")
-
+		PostHTMLDir+slug+".html", "--mathjax",
+		"--template="+PostTemplatePath)
 	err := cmd.Run()
 	if err != nil {
 		log.Println("[pandoc] ", err)
