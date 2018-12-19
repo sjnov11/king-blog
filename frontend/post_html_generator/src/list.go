@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"html/template"
 	"log"
 	"os"
@@ -16,6 +17,16 @@ func check(err error) {
 	}
 }
 
+func generateJSON(metaDataList []*MetaData) {
+	f, err := os.Create("result.json")
+	check(err)
+	defer f.Close()
+	b, err := json.Marshal(metaDataList)
+	check(err)
+	_, err = f.Write(b)
+	check(err)
+}
+
 func generateListHTML(metaDataList []*MetaData) {
 
 	t, err := template.ParseFiles(ListTemplatePath)
@@ -23,6 +34,7 @@ func generateListHTML(metaDataList []*MetaData) {
 
 	f, err := os.Create("result.html")
 	check(err)
+	defer f.Close()
 
 	data := struct {
 		List []*MetaData

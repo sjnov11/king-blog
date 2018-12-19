@@ -22,7 +22,6 @@ func buildMetaData(post []byte) (*MetaData, error) {
 
 	metaData := new(MetaData)
 	if err := json.Unmarshal(metaDataJSON, metaData); err != nil {
-		log.Println("?")
 		log.Println("[metadata]", err)
 		return nil, errors.New("Fail to build metadata structure")
 	}

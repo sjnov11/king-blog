@@ -12,6 +12,7 @@ var (
 )
 
 // Returns yaml frontmatter. Error is not nil if post does not have yaml.
+// yaml starts with '\n'
 func getYAML(post []byte) (string, error) {
 	postString := string(post)
 	if strings.Index(postString, "---") == -1 {
@@ -26,7 +27,7 @@ func getYAML(post []byte) (string, error) {
 		return "", errors.New("Cannot find YAML frontmatter")
 	}
 
-	yaml := postString[i+begin+1 : i+begin+end]
+	yaml := postString[i+begin : i+begin+end]
 	return yaml, nil
 }
 
@@ -36,11 +37,13 @@ func getValue(key string, yaml string) (string, error) {
 	if hashIdx == 0 {
 		return "", fmt.Errorf("Can not find key(%s)", key)
 	}
+
 	begin := strings.Index(yaml[hashIdx:], ":") + 1
 	end := strings.Index(yaml[hashIdx:], "\n")
 
 	value := yaml[hashIdx+begin : hashIdx+end]
-	value = strings.Trim(value, "\" ")
+	value = strings.TrimSpace(value)
+	value = strings.Trim(value, "\"")
 	return value, nil
 }
 
@@ -82,9 +85,7 @@ func parse(post []byte) ([]byte, error) {
 		log.Println("[parse] ", err)
 		return nil, errors.New("Fail to parse post")
 	}
-
 	yamlMap, err := buildKeyValueMap(yaml)
-	fmt.Println(yamlMap["title"])
 	if err != nil {
 		log.Println("[parse] ", err)
 		return nil, errors.New("Fail to parse post")

@@ -7,6 +7,8 @@ categories: ai
 tags: [ai, machine learning]
 ---
 
+
+
 # Artificial Neural Network
 
  인공신경망은 뉴런의 시냅스 결합으로 네트워크를 형성한 인공 뉴런(노드)이 학습을 통해 시냅스 결합 세기를 변화시켜, 문제 해결 능력을 가지는 모델 전반을 가리킨다.  

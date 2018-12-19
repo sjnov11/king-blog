@@ -43,5 +43,5 @@ func main() {
 			log.Fatal(err)
 		}
 	}
-	generateListHTML(metaDataList)
+	//generateJSON(metaDataList)
 }
