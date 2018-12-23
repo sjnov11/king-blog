@@ -7,6 +7,10 @@ import (
 	"os"
 )
 
+type MetaDataList struct {
+	List []*MetaData `json:"list"`
+}
+
 const (
 	ListTemplatePath = "./assets/template/list.html"
 )
@@ -18,17 +22,18 @@ func check(err error) {
 }
 
 func generateJSON(metaDataList []*MetaData) {
-	f, err := os.Create("result.json")
+	list := MetaDataList{List: metaDataList}
+
+	f, err := os.Create(HTMLDir + "list.json")
 	check(err)
 	defer f.Close()
-	b, err := json.Marshal(metaDataList)
+	b, err := json.Marshal(list)
 	check(err)
 	_, err = f.Write(b)
 	check(err)
 }
 
 func generateListHTML(metaDataList []*MetaData) {
-
 	t, err := template.ParseFiles(ListTemplatePath)
 	check(err)
 

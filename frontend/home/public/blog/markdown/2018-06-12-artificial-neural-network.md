@@ -7,8 +7,6 @@ categories: ai
 tags: [ai, machine learning]
 ---
 
-
-
 # Artificial Neural Network
 
  인공신경망은 뉴런의 시냅스 결합으로 네트워크를 형성한 인공 뉴런(노드)이 학습을 통해 시냅스 결합 세기를 변화시켜, 문제 해결 능력을 가지는 모델 전반을 가리킨다.  
@@ -36,28 +34,21 @@ tags: [ai, machine learning]
 
 
 - $X_i(t)$ 는 input vector의 $i$th component. 
-
 - $w_{ij}$ 는 $X_i$의 weight.
-
 - $\theta_j$는 뉴런 $j$의 threshold.
-
 - $p_j(t)$ 는 뉴런 $j$로 들어오는 input vector의 weighted sum.
-
 
 $$
 p_j(t) = \sum_{i} X_i(t)*w_{ij}
 $$
 
 - $f$ 는 activation function
-
 - $o_j(t)$ 는 뉴런 $j$의 output.
-
 
 $$
 o_j = f(p_j, \theta_j)\\
   o_j = f(\sum_ip_j(t)-\theta_j)
 $$
-
 
 
 
@@ -76,12 +67,9 @@ Learning rule은 원하는 결과값을 얻기위해 neural network의 parameter
 ### Loss function(Error function)
 
  Loss function(Error function)은 neural network의 output과 expected output 간의 차이를 계산한다.
-
-
 $$
 E_p = \frac{1}{2}\sum_j(d_j-y_j)^2
 $$
-
 
 
 ### Chain rule
@@ -89,13 +77,9 @@ $$
 ![Chain Rule](https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/06/12/chain%20rule.png?raw=true) 
 
  각 parameter 별로 Loss function에 대한 gradient를 구할 때, 미분의 chain rule에 의해서 다음과 같이 계산할 수 있다. 
-
-
 $$
 {\partial{L}\over\partial{x}} = {\partial{y}\over\partial{x}}{\partial{L}\over\partial{y}}
 $$
-
-
 ${\partial{L}\over\partial{x}}$ 는 Loss로 부터 흘러들어온 gradient이고, $\partial{y}\over\partial{x}$ 는 현재 입력 값에 대한 현재 연산결과의 변화량, 즉, Local gradient이다. 즉, 현재 입력 $x$ 에 대한 Loss 의 변화량은 흘러들어온 gradient 에 local gradient를 곱해서 구한다는 것이다.
 
 
@@ -109,7 +93,6 @@ ${\partial{L}\over\partial{x}}$ 는 Loss로 부터 흘러들어온 gradient이�
 ### Learning
 
 Error function 을 뉴런 $j$의 각각의 weight에 대하여 편미분하여 gradient descent rule을 적용한다. 다음 식은 뉴런 $j$ 의 $i$th weight $w_{ij}$ 에 대하여 편미분하여 $w_{ij}$ 에 대한 gradient를 구하여, gradient descent rule 을 적용한 식이다.
-
 
 
 $$
@@ -130,14 +113,10 @@ $$
 
 
   Linear activation function 형태의 간단한 neuron일 경우, delta rule은 아래와 같다.
-
-
 $$
 \Delta w_{ij}(t) =\alpha(d_j(t)-y_j(t))*x_i(t)\\
 w_{ij}(t+1) = w_{ij}(t) + \Delta w_{ij}(t)
 $$
-
-
 
 
 ## Backpropagation Neural Network (Multi-layered Perceptron)
@@ -153,78 +132,58 @@ $$
  Delta rule에서는 output layer에서 발생한 error를 이용하여 input layer의 weight들을 갱신하였었다. Error backpropagation은 multi-layered 구조이므로, 이 과정에 hidden layer 의 weight 갱신과정이 추가된다. 즉,
 
 - Output layer에서 발생한 error를 통해 hidden layer의 weight를 갱신
-
 - 갱신된 값을 input layer로 backpropagate 시켜 input layer의 weight 갱신
-
 - Weight 갱신은 gradient descent rule로 error를 최소화 하는 방식
-
 
 ![Error backpropagation](https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/06/12/Error%20backpropagation.png?raw=true)
 
 1. 모든 가중치 **$W$**와 임계치 $\theta$ 를 임의의 값으로 초기화 시킨다.
-
 2. 입력 $X_p$ 와 목표 출력 $d_p$ 를 제시한다. 
-
 3. 제시된 입력을 이용하여 Hidden layer의 $j$번째 뉴런으로의 입력은 다음과 같다.
-
 
 $$
    Input_{pj} = \sum_{i}X_{pi}*W_{ij}-\theta_{j}
 $$
 
-4. Activation function을 사용하여 Hidden layer의 출력 $O_{pj}$ 를 계산한다.
-
+1. Activation function을 사용하여 Hidden layer의 출력 $O_{pj}$ 를 계산한다.
 
 $$
    O_{pj} = f(Input_{pj})
 $$
 
-5. Hidden layer의 출력을 이용하여 Output layer $k$번째 뉴런으로의 입력은 다음과 같다.
-
+1. Hidden layer의 출력을 이용하여 Output layer $k$번째 뉴런으로의 입력은 다음과 같다.
 
 $$
    Input_{pk} = \sum_{j}O_{pj}*W_{jk}-\theta_{k}
 $$
 
-6. Activation function을 사용하여 Output layer의 출력 $O_{pk}$를 계산한다.
-
+1. Activation function을 사용하여 Output layer의 출력 $O_{pk}$를 계산한다.
 
 $$
    O_{pk} = f(Input_{pk})
 $$
 
-7. 출력 $O_{pk}$와 목표 출력 $d_{pk}$ 값을 비교하여 $Error \ function= E_p$  를 구한다.
-
+1. 출력 $O_{pk}$와 목표 출력 $d_{pk}$ 값을 비교하여 $Error \ function= E_p$  를 구한다.
 
 $$
    E_p = \frac{1}{2}\sum_{k}(d_{pk}-O_{pk})^2
 $$
 
-8. Neural network의 weight에 대한 gradient를 구한다. (각 가중치 $W$에 대한 $E_p$의 변화율)
+1. Neural network의 weight에 대한 gradient를 구한다. (각 가중치 $W$에 대한 $E_p$의 변화율)
 
   ​    
 
    ![](https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/06/12/backpropagation_step1.png?raw=true)
 
    Hidden layer의 $j$ 뉴런에서 output layer $k$ 뉴런을 연결하는 weight $W_{jk}$ 에 대한 $E_p$의 변화율은 다음과 같다.
-
-
 $$
   -{\partial{E_p}\over\partial{W_{jk}}} = {\partial{E_p}\over\partial{O_{pk}}}{\partial{O_{pk}}\over\partial({Input_{pk})}}{\partial({Input_{pk}})\over\partial{W_{jk}}} \ \ \ \ \ \because \mbox{chain rule}
 $$
-
-
    $k$ 는 $W_{jk}$의 하나의 $k$만이 relate 되어 있으므로(하나의 $k$만 error에 영향),
-
-
 $$
   -{\partial{E_p}\over\partial{W_{jk}}} = (d_{pk}-O_{pk})f'(Input_{pk})O_{pj}
 $$
-
-
   이고, activation function이 $sigmoid function$일 경우,
-
-
 $$
   y=\frac{1}{1+e^{-x}}  \ \  \ \therefore {\partial{y}\over\partial{x}} = y(1-y)
 $$
@@ -232,7 +191,6 @@ $$
 $$
   -{\partial{E_p}\over\partial{W_{jk}}} = (d_{pk}-O_{pk})O_{pk}(1-O_{pk})O_{pj}\\=\delta_{pk}*O_{pj} \\(\because \delta_{pk} = (d_{pk}-O_{pk})O_{pk}(1-O_{pk}))
 $$
-
 
    ${\partial{E_p}\over\partial{W_{ij}}}$ 는 $W_{ij}$ 가 최종 $Loss function$에 얼마나 영향을 주는가를 나타내는 값이다. 
 
@@ -243,37 +201,26 @@ $$
   
 
    그림에서, $W_{ij}$는 $Loss \ function$ $E_p$에 모든 $k$에 대하여 영향을 준다. (relate 되어 있다). 따라서, input layer의 $i$ 뉴런에서 hidden layer $j$ 뉴런을 연결하는 weight $W_{ij}$ 에 대한 $E_p$의 변화율은 다음과 같다.
-
-
 $$
   -{\partial{E_p}\over\partial{W_{ij}}} = -{\partial{E_p}\over{\partial{O_{pk}}}}{\partial{O_{pk}}\over\partial{(Input_{pk})}}{\partial{(Input_{pk})}\over\partial{O_{pj}}}{\partial{O_{pj}}\over\partial{(Input_{pj})}}{\partial{(Input_{pj})}\over\partial{W_{ij}}}\\
         =\sum_{k}(d_{pk}-O_{pk}) f'(Input_{pk})W_{jk}f'(Input_{pj})X_{pi}\\
         =\sum_{k}\delta_{pk}*W_{jk}*f'(Input_{pj})*X_{pi}
 $$
-
-
   $\partial{E_p}\over\partial{W_{ij}}$는 이전 단계의 backpropagation $\delta_{pk}$ 에 weight를 곱하고, 자신의 derivated activation function에 자신의 입력을 곱한 값이된다.
 
    $activation \ function$ 이 sigmoid 함수일 경우, $\partial{E_p}\over\partial{W_{ij}}$ 는 다음과 같다.
-
-
 $$
   {\partial{E_p}\over\partial{W_{ij}}}= \sum_k(d_{pk} - O_{pk})O_{pk}(1-O_{pk})W_{jk}*O_{pj}(1-O_{pj})X_{pi}\\
         = \sum_k\delta_{pk}W_{jk}*O_{pj}(1-O_{pj})X_{pi}\\
         = \delta_{pj}*X_{pi}\\
         \left(\because \ \delta_{pj} = \sum_k\delta_{pk}W_{jk}*O_{pj}(1-O_{pj})\right)
 $$
-
-
    $\delta$ 가 의미하는 바는 현재 단계의 backpropagate error이고, 이전단계의 backpropagate error * 해당 weight * 현재 뉴런의 activation function을 미분한 함수 이다) 
-
-
 $$
   \delta_{j} = \sum\delta_{k}*W_{jk}*f'_j(input_j)
 $$
 
-9. 앞서 구한 weight에 대한 gradient를 통해 weight를 갱신한다.
-
+1. 앞서 구한 weight에 대한 gradient를 통해 weight를 갱신한다.
 
 
 $$
@@ -282,10 +229,8 @@ W_{jk}(t+1) = W_{jk}(t) + \alpha*\delta_{pk}*O_{pj}\\
 $$
 
 
-
-10. 모든 학습쌍에 대하여 전부 학습할 때 까지 2로 분기하여 반복 수행한다.
-
-11. 출력층의 $E_p$가 허용값 이하이거나 최대 반복횟수보다 크면 종료, 아니면 2로 분기하여 반복수행한다.
+1. 모든 학습쌍에 대하여 전부 학습할 때 까지 2로 분기하여 반복 수행한다.
+2. 출력층의 $E_p$가 허용값 이하이거나 최대 반복횟수보다 크면 종료, 아니면 2로 분기하여 반복수행한다.
 
 
 
@@ -310,16 +255,13 @@ $$
 1. M개의 초기 학습패턴을 이용하여 N개 뉴런의 weight를 설정한다. (weight matrix로 표현)
 
 
-
 $$
 W_{ij} = {\begin{cases}\sum_{s=0}^{M-1}X_{i} ^{\ S}X_j^{\ S} &{if \  \  (i\neq j)}\\  \\ 0 & if\ (i=j)\end{cases}}\\  
    X_{i}^{\ S} \mbox{는 }s\mbox{번째 }input \ vector\mbox{의 }i\mbox{th component 를 나타낸다}
 $$
 
 
-
-2. 입력 패턴을 Hopfield memory 에 제시한다.
-
+1. 입력 패턴을 Hopfield memory 에 제시한다.
 
 
 $$
@@ -327,9 +269,7 @@ $$
 $$
 
 
-
-3. 뉴런들의 출력과 가중치를 곱한 값을 합하여 Activation function에 통과시킨다. (입력 패턴 행렬을 Weight 행렬과 곱한 결과를 activation function에 통과시킨 결과가 출력패턴)
-
+1. 뉴런들의 출력과 가중치를 곱한 값을 합하여 Activation function에 통과시킨다. (입력 패턴 행렬을 Weight 행렬과 곱한 결과를 activation function에 통과시킨 결과가 출력패턴)
 
 
 $$
@@ -337,8 +277,7 @@ $$
 $$
 
 
-
-4. 뉴런의 출력 ($\mu_i$) 가 변화가 없을 때 까지 3을 반복한다.
+1. 뉴런의 출력 ($\mu_i$) 가 변화가 없을 때 까지 3을 반복한다.
 
 
 
@@ -361,7 +300,6 @@ $$
  그렇다면 임의의 input vector가 주어졌을 때, 가장 활성화가 크게 된 뉴런(승자뉴런)을 어떻게 구할 수 있을까? 활성화 뉴런은 input vector를 weighted sum 한 결과를 값으로 갖게 되는데, 이는 input vector와 weight vector를 내적한 결과와 같다. 벡터의 내적 값은 두 벡터가 가까울 수록(비슷할 수록) 그 값이 커지므로, input vector와 distance가 가장 작은 weight vector를 갖는 뉴런이 활성화가 가장 클 것이다. 따라서 다음과 같이 승자뉴런을 구할 수 있다.
 
 
-
 $$
 d_j=\sum_{i}(X_i(t) - W_{ij}(t))^2\\
 \mbox{승자뉴런은 가장 작은 }d_j\mbox{를 갖는 }j\\
@@ -369,7 +307,6 @@ X_i\mbox{는 } input\ vector\mbox{의 }i\mbox{번째 } component
 \\
 W_{ij}\mbox{는 } i\mbox{번째 } component \mbox{에서 } j\mbox{ 뉴런으로 연결되는 } weight
 $$
-
 
 
  SOM은 여기서 추가적으로 다른 일반적인 learning과 달리 승자뉴런만 학습하는 것이 아니라, 승자뉴런과 인접한 뉴런들 역시 학습시킨다.
@@ -381,11 +318,8 @@ $$
 ### Learning
 
 1. 모든 weight($W$)들을 초기화 한다.
-
 2. 새로운 입력패턴 벡터를 입력뉴런에 제시한다.
-
 3. 입력패턴 벡터와 모든 출력 뉴런의 weight 벡터와의 거리를 계산한다.
-
 
 
 $$
@@ -393,11 +327,8 @@ d_j = \sum_i(X_i(t)-W_{ij}(t))^2 \ \ \  \ \ \ \ \ (j\mbox{는 출력 뉴런의 }
 $$
 
 
-
-4. 최소 거리를 가지는 출력 뉴런이 가장 활성화 되는 승자 뉴런($j^*$)
-
-5. 승자 뉴런($j^*$)와 이웃 반경내의 뉴런들을 갱신한다.
-
+1. 최소 거리를 가지는 출력 뉴런이 가장 활성화 되는 승자 뉴런($j^*$)
+2. 승자 뉴런($j^*$)와 이웃 반경내의 뉴런들을 갱신한다.
 
 
 $$
@@ -405,7 +336,5 @@ W_{ij}(t+1) = W_{ij}(t) + \alpha(X_i(t)-W_{ij}(t))\ \  \ \ \ \  (j\mbox{는 }j* 
 $$
 
 
-
-6. 모든 입력패턴 벡터를 처리할 때 까지 2부터 다시 반복한다.
-
-7. 이웃 반경을 감소시키면서 2~6 과정을 충분히 반복 학습시킨다.
+1. 모든 입력패턴 벡터를 처리할 때 까지 2부터 다시 반복한다.
+2. 이웃 반경을 감소시키면서 2~6 과정을 충분히 반복 학습시킨다.

@@ -1,0 +1,60 @@
+ 
+<div class="post-header">
+  <h1 class="title">벨만-포드 알고리즘(Bellman-Ford Algorithm)</h1>
+  <p class="date">2018-08-23</p>
+  <p class="tags">algorithm</p>
+</div>
+
+
+<div class="post-body">
+<h1 id="bellman-ford-algorithm">Bellman-Ford Algorithm</h1>
+<p>벨만-포드 알고리즘은 최단 경로를 구하는 대표적인 알고리즘 중 하나이다.</p>
+<p>다익스트라와 마찬가지로 relaxation 과정을 통해 최단 경로를 구한다. relaxation이란, 점진적으로 더 정확한 값으로 변경해나가면서 마지막에 optimal solution 에 도달하는 것을 말한다. 최단 경로의 relaxation 과정은 다음과 같다.</p>
+<h3 id="relaxation">Relaxation</h3>
+<blockquote>
+<ul>
+<li>지금까지 나는 노드 <span class="math inline">\(v\)</span> 까지의 최단 거리를 dist[v] 라고 알고 있어. 근데 알고보니 <span class="math inline">\(u\)</span> 를 거쳐 <span class="math inline">\(v\)</span> 로 가는 dist[u] + weight(u,v) 가 더 짧은 거리인걸 알았고 dist[v] 를 이것으로 바꿀꺼야.</li>
+</ul>
+</blockquote>
+<p>처음에는 모든 거리 값을 “over-estimate” 하게 둔다. 그리고 새로 찾은 path의 길이가 더 짧은 거리라면 그 값으로 바꾼다. 다익스트라는 priority queue로 greedy 한 방식으로 다음 edge를 선택하여 relaxation을 수행하는 반면에, 벨만-포드 알고리즘은 모든 edge에 대하여 relaxation을 수행하는 차이가 있다</p>
+<h2 id="알고리즘-순서">알고리즘 순서</h2>
+<ol type="1">
+<li>모든 정점(vertex)의 거리를 무한대 <span class="math inline">\(\infty\)</span> 로 둔다.</li>
+<li>시작 정점(source)의 거리를 0으로 둔다.</li>
+<li>모든 간선(edge)에 대해서 relaxation을 $ (V-1)$ 회 수행한다.</li>
+<li>모든 간선(edge)에 대해 relaxation을 한번 더 수행한다. 만약 거리의 update가 일어난다면, negative cycle이 존재한다.</li>
+</ol>
+<h3 id="psuedo-code">Psuedo-code</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">for</span> v in V:</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    v.distance = INFINITY</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    v.parent = None</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">source.distance = <span class="dv">0</span></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="cf">for</span> i range(<span class="dv">1</span>, V<span class="dv">-1</span>):</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="cf">for</span> (u, v) in E:</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">        relax(u, v)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="cf">for</span> (u, v) in E:</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">    <span class="cf">if</span> v.distance &gt; u.distance + weight(u, v):</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">        print <span class="st">&quot;Negative cycle!&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1">relax(u, v):</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">    <span class="cf">if</span> v.distance &gt; u.distance + weight(u, v):</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">        v.distance = u.distance + weight(u, v)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">        v.parent = u</a></code></pre></div>
+<h2 id="몇-번의-relaxation을-해야하는가">몇 번의 relaxation을 해야하는가?</h2>
+<p>다익스트라 알고리즘과 벨만-포드 알고리즘의 차이 중 하나가 바로 relaxation의 횟수이다. 다음 그래프를 살펴보자. 시작점은 A이다.</p>
+<figure>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Bellman-Ford_worst-case_example.svg/220px-Bellman-Ford_worst-case_example.svg.png" alt="Relaxation이 가장 많이 발생하는 경우 (n=5)" /><figcaption>Relaxation이 가장 많이 발생하는 경우 (n=5)</figcaption>
+</figure>
+<p>다익스트라 알고리즘의 경우는 A에서 부터 차례대로 거리를 계산한다. Greedy 기법으로 한번의 relaxation으로 모든 거리가 optimal 함이 보장이 된다.</p>
+<p>하지만 벨만-포드 알고리즘은 모든 간선에 대해서 relaxation을 한다. Relaxation을 왼쪽에서 오른쪽 순서로 진행한다면 한번의 relaxation으로 최단 거리를 구할 수 있지만, 오른쪽에서 왼쪽 순서로 진행한다면 총 4회의 relaxation을 수행을 하여야 한다. 이를 일반화 해보자.</p>
+<p><span class="math inline">\(s\)</span> 에서 <span class="math inline">\(t\)</span> 로 가는 가장 짧은 경로 <span class="math inline">\(s, v_1, v_2, ..., v_k, t\)</span> 가 있다고 하자. 이 최단 경로는 최대 $V -1 $ 개의 간선이 있을 수 있다. 첫번째 relaxation에서 간선 <span class="math inline">\((s, v1)\)</span> 이 relaxation 됨이 보장된다. 지금 당장은 <span class="math inline">\(v1\)</span> 이 어떤 정점인지는 알 수는 없지만, <span class="math inline">\(v1\)</span> 의 후보들 모두 정확한 거리가 계산되어 진다. 두번째 relaxation에서는 <span class="math inline">\((v1,v2)\)</span> 가 보장되고, 이것이 끝까지 계속된다. 따라서, 최단경로가 최대 <span class="math inline">\(V-1\)</span> 개의 간선으로 이루어져 있으므로, <span class="math inline">\(V-1\)</span> 회 relaxation을 수행한다면 모든 정점의 거리가 정확히 계산된다.</p>
+<h2 id="시간-복잡도">시간 복잡도</h2>
+<p>모든 간선<span class="math inline">\((E)\)</span> 에 대해서 Relaxation을 총 <span class="math inline">\(V-1\)</span> 회 수행한다. 따라서 시간 복잡도는 <span class="math inline">\(O(VE)\)</span> 가 된다.</p>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://stackoverflow.com/questions/2592769/what-is-the-relaxation-condition-in-graph-theory"></a></li>
+<li>https://cs.stackexchange.com/questions/6894/bellman-ford-algorithm-why-can-edges-be-updated-out-of-order/6914#6914</li>
+</ul> 
+</div>
+
+
+

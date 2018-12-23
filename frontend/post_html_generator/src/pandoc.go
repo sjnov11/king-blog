@@ -8,10 +8,10 @@ import (
 
 const (
 	PostTemplatePath = "./assets/template/post.html"
-	PostHTMLDir      = "../home/public/posts/"
+	PostHTMLDir      = "../home/public/blog/"
 )
 
-func generateHTML(path string, slug string) error {
+func generatePostHTML(path string, slug string) error {
 	cmd := exec.Command("pandoc",
 		path, "-f", "markdown",
 		"-t", "html", "-s", "-o",

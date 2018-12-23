@@ -8,7 +8,9 @@ import (
 
 const (
 	// PostDir : location of blog posts md
-	PostDir = "../home/public/posts/markdown/"
+	PostDir = "../home/public/blog/markdown/"
+	HTMLDir = "../home/public/blog/"
+	WebDir  = "/blog/"
 )
 
 func main() {
@@ -30,18 +32,18 @@ func main() {
 			log.Fatal(err)
 		}
 
-		metaData, err := buildMetaData(content)
+		metaData, err := buildMetaData(content, file.Name())
+		if err != nil {
+			log.Println("[main] ", err, "(", path, ")")
+			log.Fatal(err)
+		}
+
+		err = generatePostHTML(path, metaData.Slug)
 		if err != nil {
 			log.Println("[main] ", err, "(", path, ")")
 			log.Fatal(err)
 		}
 		metaDataList = append(metaDataList, metaData)
-
-		err = generateHTML(path, metaData.Slug)
-		if err != nil {
-			log.Println("[main] ", err, "(", path, ")")
-			log.Fatal(err)
-		}
 	}
-	//generateJSON(metaDataList)
+	generateJSON(metaDataList)
 }

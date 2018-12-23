@@ -1,0 +1,55 @@
+ 
+<div class="post-header">
+  <h1 class="title">다익스트라 알고리즘(Dijkstra Algorithm)</h1>
+  <p class="date">2018-11-14</p>
+  <p class="tags">algorithm</p>
+</div>
+
+
+<div class="post-body">
+<h1 id="dijkstra-algorithm">Dijkstra Algorithm</h1>
+<p>다익스트라는 <strong>한 정점에서 다른 정점으로의 최단거리</strong>를 구할 때 쓰는 알고리즘입니다. 다익스트라는 다른 알고리즘보다 빠른 속도로 최단거리를 구할 수 있지만 <strong>음수 간선이 존재하는 경우에는 사용할 수 없는 단점</strong>이 있습니다. 이 경우에는 벨만-포드 알고리즘을 사용하는 것이 좋습니다.</p>
+<h3 id="알고리즘">알고리즘</h3>
+<ol type="1">
+<li><p><em>ShortestPath</em>에 포함되는 정점 set과 그렇지 않은 정점 set을 나눕니다. 초기에는 포함되는 정점 set은 비어있습니다.</p></li>
+<li><p>주어진 Graph의 모든 정점에 대하여 출발점으로부터의 거리(<em>dist</em>)를 INFINITE로 초기화 시킵니다. 시작 정점은 0입니다.</p></li>
+<li><p>모든 정점이 <em>ShortestPath</em> set에 포함될 때까지 아래를 수행합니다.</p>
+<ol type="1">
+<li><p><em>ShortestPath</em>에 포함되지 않은 정점 중 가장 <em>dist</em> 값이 작은 정점 <em>u</em> 를 고릅니다.</p></li>
+<li><p><em>u</em>를 <em>ShortestPath</em> 에 포함시킵니다.</p></li>
+<li><p><em>u</em> 에 인접하고 있는 정점들(<em>v</em>)에 대해, <em>v</em> 의 현재 <em>dist</em> 보다 <em>u</em> 의 <em>dist</em> + <em>weight(u,v)</em> 가 크다면 <em>v</em> 의 <em>dist</em> 를 갱신해 줍니다. <span class="math inline">\(dist[v] = \min(dist[v], dist[u] + weight(u,v))\)</span></p></li>
+</ol></li>
+</ol>
+<p>아래 코드에서는 <em>ShortestPath</em> 포함 여부를 <em>visited</em> 배열로 하고, Priority Queue 를 통해 <em>ShortestPath</em> 에 포함되지 않는 가장 <em>dist</em> 가 작은 정점을 고릅니다.</p>
+<h3 id="c-코드">C++ 코드</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1">vector&lt;<span class="dt">int</span>&gt; dijkstra(<span class="dt">int</span> start) {</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    vector&lt;<span class="dt">int</span>&gt; dist(V<span class="dv">+1</span>, INF);</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    vector&lt;<span class="dt">bool</span>&gt; visited(V<span class="dv">+1</span>, <span class="kw">false</span>);</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">    priority_queue&lt;pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt;&gt; pq;</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    dist[start] = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    pq.push(make_pair(<span class="dv">0</span>, start));</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">    <span class="cf">while</span> (!pq.empty()) {</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">        <span class="dt">int</span> u = pq.top().second;</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">        pq.pop();</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">        <span class="cf">if</span> (visited[u]) <span class="cf">continue</span>;</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">        visited[u] = <span class="kw">true</span>;</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">        <span class="cf">for</span> (<span class="kw">auto</span> adj : adj_list[u]) {</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">            <span class="dt">int</span> v = adj.first;</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">            <span class="dt">int</span> w = adj.second;</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">            <span class="cf">if</span> (dist[v] &gt; dist[u] + w) {</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20">                dist[v] = dist[u] + w;</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">                pq.push({ dist[v] * (<span class="dv">-1</span>), v });</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">            }</a>
+<a class="sourceLine" id="cb1-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">        }</a>
+<a class="sourceLine" id="cb1-25" data-line-number="25">    }</a>
+<a class="sourceLine" id="cb1-26" data-line-number="26">    <span class="cf">return</span> dist;</a>
+<a class="sourceLine" id="cb1-27" data-line-number="27">}</a></code></pre></div> 
+</div>
+
+
+

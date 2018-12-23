@@ -86,5 +86,5 @@ $s$ 에서 $t$ 로 가는 가장 짧은 경로 $s, v_1, v_2, ..., v_k, t$ 가 �
 
 ## Reference
 
-- https://stackoverflow.com/questions/2592769/what-is-the-relaxation-condition-in-graph-theory
+- [](https://stackoverflow.com/questions/2592769/what-is-the-relaxation-condition-in-graph-theory)
 - https://cs.stackexchange.com/questions/6894/bellman-ford-algorithm-why-can-edges-be-updated-out-of-order/6914#6914

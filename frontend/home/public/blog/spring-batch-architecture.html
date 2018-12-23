@@ -1,0 +1,40 @@
+ 
+<div class="post-header">
+  <h1 class="title">[Spring Batch] Architecture</h1>
+  <p class="date">2018-11-25</p>
+  <p class="tags">spring</p>
+  <p class="tags">batch</p>
+</div>
+
+
+<div class="post-body">
+<h1 id="spring-batch-architecture">[Spring Batch] Architecture</h1>
+<p>Spring batch의 Architecture는 아래 그림과 같이 <strong>Application, Batch Core, Batch Infrastructure</strong> 로 구성되어 있다.</p>
+<figure>
+<img src="https://www.tutorialspoint.com/spring_batch/images/architecture.jpg" alt="architecture" /><figcaption>architecture</figcaption>
+</figure>
+<ul>
+<li>Application - 모든 job과 Spring batch framework로 작성된 code</li>
+<li>Batch core - Batch job을 control하고 launch 하기 위한 API classes</li>
+<li>Batch Infrastructure - Application과 Batch core component들이 사용하는 reader, writer, services</li>
+</ul>
+<h2 id="components-of-spring-batch">Components of Spring Batch</h2>
+<figure>
+<img src="https://www.tutorialspoint.com/spring_batch/images/components.jpg" alt="component" /><figcaption>component</figcaption>
+</figure>
+<h3 id="job">Job</h3>
+<p>Spring batch에서 Job은 execute될 batch process이다. Job은 Step들로 구성되어 있다. Job은 XML file이나 Java class로 configure 한다.</p>
+<h3 id="step">Step</h3>
+<p>Step은 job의 독립적인 각 부분을 말한다. Job을 정의하고 실행하는데 필수적인 요소이다.</p>
+<p>그림처럼, 한 Step은 ItemReader, ItemProcessor, ItemWriter로 구성되어 있다. Job은 한 개 이상의 Step으로 구성되어 있다.</p>
+<h4 id="item-reader-writer-and-processor">Item Reader, Writer and Processor</h4>
+<p><strong>Item reader</strong>는 특정 source에서 Spring Batch application으로 data를 읽어 들이고, 반대로 <strong>Item writer</strong>는 Spring Batch application에서 특정 source로 data를 쓴다. <strong>Item Processor</strong>는 Spring batch로 읽어들인 data를 가공하는 class이다.</p>
+<p>Reader와 Writer가 없을 때, <strong>tasklet</strong>이 Spring Batch의 processor 역할을 한다.</p>
+<h3 id="job-repository">Job Repository</h3>
+<p>Job repository는 Job Launcher, Job, Step 을 위한 CRUD operation을 제공한다. 만약, Spring Batch의 domain object들을 database에 유지시키고 싶지 않다면 in-memory version JobRepository를 사용하면 된다.</p>
+<h3 id="job-launcher">Job Launcher</h3>
+<p>Job Launcher는 Spring Batch job을 주어진 parameter들로 실행시키는 interface이다.</p> 
+</div>
+
+
+

@@ -1,0 +1,173 @@
+ 
+<div class="post-header">
+  <h1 class="title">힙과 힙 정렬(Heap and Heap Sort)</h1>
+  <p class="date">2018-10-01</p>
+  <p class="tags">data structure</p>
+</div>
+
+
+<div class="post-body">
+<h1 id="heap-and-heap-sort">Heap and Heap Sort</h1>
+<h2 id="what-is-heap">What is Heap?</h2>
+<ul>
+<li><strong>최댓값 및 최솟값</strong>을 찾아내는 연산을 빠르게 하기 위해 고안된 자료구조</li>
+<li>부모 노드와 자식 노드 사이에 대소 관계가 성립</li>
+<li><strong>Max heap</strong>(최대힙): 부모 노드가 자식 노드 보다 항상 큰 힙(root: 최댓값)</li>
+<li><strong>Min heap</strong>(최소 힙): 부모 노드가 자식 노드 보다 항상 작은 힙(root: 최솟값)</li>
+<li>보통 완전이진트리(Complete Binary Tree) 를 구조를 사용한다.</li>
+</ul>
+<p>아래 그림은 Max-heap의 예시이다. 부모 노드가 항상 자식 노드보다 크다.</p>
+<figure>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Max-Heap.svg/330px-Max-Heap.svg.png" alt="Max heap의 예시" /><figcaption>Max heap의 예시</figcaption>
+</figure>
+<h1 id="min-heap최소-힙의-구현">Min Heap(최소 힙)의 구현</h1>
+<p>이진 트리는 배열로 만들 수 있으며 배열의 <span class="math inline">\(i\)</span> 번째 노드 부모는 <span class="math inline">\(i/2\)</span> , 자식은 <span class="math inline">\(2i\)</span> 와 <span class="math inline">\(2i+1\)</span> 이다. 이 이진트리에 부모/자식간 대소 관계가 성립하도록 하면 Heap이 된다. 여기서는 최소 힙을 예로 들어 구현하였다.</p>
+<h2 id="insertion">Insertion</h2>
+<ol type="1">
+<li>가장 마지막 위치에 새로운 노드를 삽입한다.</li>
+<li>새 노드가 부모와의 대소 관계가 성립할 때 까지 둘의 위치를 바꾼다.</li>
+</ol>
+<p>아래 예를 살펴보자.</p>
+<ol type="1">
+<li><p>가장 마지막 위치에 새 노드 4 를 삽입한다.</p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/10/01/heap_insertion_1.png?raw=true" alt="[Step1] 4를 마지막에 삽입한다" /><figcaption>[Step1] 4를 마지막에 삽입한다</figcaption>
+</figure></li>
+<li><p>부모 노드 9와의 대소 관계를 살펴본다. 최소 힙 조건을 만족하지 않으므로 둘의 위치를 바꾼다.</p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/10/01/heap_insertion_2.png?raw=true" alt="[Step2-1] 부모 노드와 대소관계를 비교한다" /><figcaption>[Step2-1] 부모 노드와 대소관계를 비교한다</figcaption>
+</figure></li>
+<li><p>부모 노드 6과의 대소 관계를 살펴본다. 최소 힙 조건을 만족하지 않으므로 둘의 위치를 바꾼다.</p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/10/01/heap_insertion_3.png?raw=true" alt="[Step2-2] 부모 노드와 대소관계를 비교한다" /><figcaption>[Step2-2] 부모 노드와 대소관계를 비교한다</figcaption>
+</figure></li>
+<li><p>부모 노드 1과의 대소 관계를 살펴본다. 최소 힙 조건을 만족하므로 종료한다.</p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/10/01/heap_insertion_4.png?raw=true" alt="[Step2-3] 부모 노드와 대소관계를 비교한다" /><figcaption>[Step2-3] 부모 노드와 대소관계를 비교한다</figcaption>
+</figure></li>
+</ol>
+<h3 id="insertion-시간-복잡도">Insertion 시간 복잡도</h3>
+<p>새 노드를 삽입하는데는 상수 시간이 걸리고, 트리를 재구성에 (부모와의 대소 관계를 확인) 최대 이진트리의 높이 만큼 <span class="math inline">\(O(\log{N})\)</span> 걸린다.</p>
+<h2 id="deletion">Deletion</h2>
+<ol type="1">
+<li>루트 노드에 마지막 노드를 가져온다. 이전 루트 노드는 리턴 값이 된다.</li>
+<li>가져온 노드가 자식과의 대소 관계가 성립할 때 까지 교환한다.</li>
+</ol>
+<p>아래의 예를 살펴보자.</p>
+<ol type="1">
+<li><p>루트 노드 1은 리턴 값이 된다. 루트 노드에 마지막 노드 9를 가져온다.</p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/10/01/heap_deletion_1.png?raw=true" alt="[Step1] 루트 노드를 빼고 그 자리에 마지막 노드를 가져온다" /><figcaption>[Step1] 루트 노드를 빼고 그 자리에 마지막 노드를 가져온다</figcaption>
+</figure></li>
+<li><p>가져온 노드 9와 자식 4,자식 3 과 대소 관계를 살펴본다. 최소 힙 조건을 만족하지 않으므로 최소 힙을 만족할 수 있는 가장 작은 값 3과 바꾼다.</p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/10/01/heap_deletion_2.png?raw=true" alt="[Step2-1] 자식 노드와 대소관계를 비교한다" /><figcaption>[Step2-1] 자식 노드와 대소관계를 비교한다</figcaption>
+</figure></li>
+<li><p>가져온 노드 9와 자식 9, 자식 7과 대소 관계를 살펴본다. 최소 힙 조건을 만족하는 가장 작은 값 7과 바꾼다.</p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/10/01/heap_deletion_3.png?raw=true" alt="[Step2-2] 자식 노드와 대소관계를 비교한다" /><figcaption>[Step2-2] 자식 노드와 대소관계를 비교한다</figcaption>
+</figure></li>
+<li><p>자식이 더 이상 존재하지 않으므로 종료한다.</p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/10/01/heap_deletion_4.png?raw=true" alt="[Step2-3] 자식 노드와 대소관계를 비교한다" /><figcaption>[Step2-3] 자식 노드와 대소관계를 비교한다</figcaption>
+</figure></li>
+</ol>
+<h3 id="deletion의-시간-복잡도">Deletion의 시간 복잡도</h3>
+<p>루트 노드를 삭제하는데 상수 시간이 걸리고, 트리 재구성에 (마지막에서 가져온 노드와 자식간의 대소 관계 확인) 최대 트리의 높이 만큼 <span class="math inline">\(O(\log{N})\)</span> 걸린다.</p>
+<h2 id="heap과-heap-sort">Heap과 Heap Sort</h2>
+<p>값을 오름차순으로 정렬하고 싶으면 Min heap(최소 힙) 을 구성하여 하나씩 빼내면 되고, 내림차순의 경우는 Max heap(최대 힙)을 구성하여 하나씩 뺴내면 된다. 따라서, Heap Sort의 시간 복잡도는 힙 구성에 <span class="math inline">\(\log{N} + \log{N-1} + ... + \log2 = N\log{N}\)</span> 의 시간복잡도를, 힙 삭제에 <span class="math inline">\(\log{N} + \log{N-1} + ... + \log2 = N\log{N}\)</span> 의 시간 복잡도를 가지므로 <span class="math inline">\(O(N\log{N})\)</span> 이다.</p>
+<h2 id="구현-코드">구현 코드</h2>
+<p>아래는 Min heap(최소 힙) 을 구현한 코드이다. <strong>특징으로 배열의 index가 1이 아닌 0이 루트 노드이다.</strong></p>
+<h3 id="c-코드">C++ 코드</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">class</span> Heap {</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    vector&lt;<span class="dt">int</span>&gt; heap;</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    </a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">public</span>:</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="dt">void</span> insert(<span class="dt">int</span> data) {</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">        heap.push_back(data);</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">        <span class="dt">int</span> idx = heap.size() - <span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">        <span class="cf">while</span> (idx != <span class="dv">0</span> &amp;&amp; heap[idx / <span class="dv">2</span> - ((idx % <span class="dv">2</span>)^<span class="dv">1</span>)] &gt; data) {</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">            heap[idx] = heap[idx / <span class="dv">2</span> - ((idx % <span class="dv">2</span>) ^ <span class="dv">1</span>)];</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">            idx = idx / <span class="dv">2</span> - ((idx % <span class="dv">2</span>) ^ <span class="dv">1</span>);</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">        }</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">        heap[idx] = data;</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">    }</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">    <span class="dt">int</span> pop() {</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">        <span class="dt">int</span> item = heap[<span class="dv">0</span>];</a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">        heap[<span class="dv">0</span>] = heap[heap.size() - <span class="dv">1</span>];</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">        heap.pop_back();</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">        <span class="dt">int</span> idx = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">        <span class="cf">while</span> (<span class="kw">true</span>) {</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">            <span class="dt">int</span> left = idx * <span class="dv">2</span> + <span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">            <span class="dt">int</span> right = idx * <span class="dv">2</span> + <span class="dv">2</span>;</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">            <span class="dt">int</span> min_idx = idx;</a>
+<a class="sourceLine" id="cb1-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb1-26" data-line-number="26">            <span class="cf">if</span> (left &lt; heap.size() &amp;&amp; heap[left] &lt; heap[min_idx]) {</a>
+<a class="sourceLine" id="cb1-27" data-line-number="27">                min_idx = left;</a>
+<a class="sourceLine" id="cb1-28" data-line-number="28">            }</a>
+<a class="sourceLine" id="cb1-29" data-line-number="29">            <span class="cf">if</span> (right &lt; heap.size() &amp;&amp; heap[right] &lt; heap[min_idx]) {</a>
+<a class="sourceLine" id="cb1-30" data-line-number="30">                min_idx = right;</a>
+<a class="sourceLine" id="cb1-31" data-line-number="31">            }</a>
+<a class="sourceLine" id="cb1-32" data-line-number="32"></a>
+<a class="sourceLine" id="cb1-33" data-line-number="33">            <span class="cf">if</span> (min_idx == idx) {</a>
+<a class="sourceLine" id="cb1-34" data-line-number="34">                <span class="cf">break</span>;</a>
+<a class="sourceLine" id="cb1-35" data-line-number="35">            }</a>
+<a class="sourceLine" id="cb1-36" data-line-number="36">            <span class="dt">int</span> temp = heap[idx];</a>
+<a class="sourceLine" id="cb1-37" data-line-number="37">            heap[idx] = heap[min_idx];</a>
+<a class="sourceLine" id="cb1-38" data-line-number="38">            heap[min_idx] = temp;</a>
+<a class="sourceLine" id="cb1-39" data-line-number="39">            idx = min_idx;</a>
+<a class="sourceLine" id="cb1-40" data-line-number="40">        }   </a>
+<a class="sourceLine" id="cb1-41" data-line-number="41">        <span class="cf">return</span> item;</a>
+<a class="sourceLine" id="cb1-42" data-line-number="42">    }</a>
+<a class="sourceLine" id="cb1-43" data-line-number="43"></a>
+<a class="sourceLine" id="cb1-44" data-line-number="44">    <span class="dt">int</span> size() {</a>
+<a class="sourceLine" id="cb1-45" data-line-number="45">        <span class="cf">return</span> heap.size();</a>
+<a class="sourceLine" id="cb1-46" data-line-number="46">    }</a>
+<a class="sourceLine" id="cb1-47" data-line-number="47">};</a></code></pre></div>
+<h4 id="python-코드">Python 코드</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">class</span> Heap:</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">        <span class="va">self</span>.heap <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw">def</span> insert(<span class="va">self</span>, data):</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">        <span class="va">self</span>.heap.append(data)</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">        idx <span class="op">=</span> <span class="bu">len</span>(<span class="va">self</span>.heap) <span class="op">-</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">        <span class="cf">while</span> idx <span class="op">!=</span> <span class="dv">0</span> <span class="kw">and</span> <span class="va">self</span>.heap[<span class="bu">int</span>(idx<span class="op">/</span><span class="dv">2</span>) <span class="op">-</span> ((idx<span class="op">%</span><span class="dv">2</span>)<span class="op">^</span><span class="dv">1</span>)] <span class="op">&gt;</span> data:</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">            <span class="va">self</span>.heap[idx] <span class="op">=</span> <span class="va">self</span>.heap[<span class="bu">int</span>(idx<span class="op">/</span><span class="dv">2</span>) <span class="op">-</span> ((idx<span class="op">%</span><span class="dv">2</span>)<span class="op">^</span><span class="dv">1</span>)]</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">            idx <span class="op">=</span> <span class="bu">int</span>(idx<span class="op">/</span><span class="dv">2</span>) <span class="op">-</span> ((idx<span class="op">%</span><span class="dv">2</span>)<span class="op">^</span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">        <span class="va">self</span>.heap[idx] <span class="op">=</span> data</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">    <span class="kw">def</span> pop(<span class="va">self</span>):</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">        item <span class="op">=</span> <span class="va">self</span>.heap[<span class="dv">0</span>]</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">        idx <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">        <span class="va">self</span>.heap[<span class="dv">0</span>] <span class="op">=</span> <span class="va">self</span>.heap[<span class="bu">len</span>(<span class="va">self</span>.heap) <span class="op">-</span> <span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">        <span class="va">self</span>.heap.pop()</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">        <span class="cf">while</span> <span class="va">True</span>:</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">            left <span class="op">=</span> idx <span class="op">*</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">1</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">            right <span class="op">=</span> idx <span class="op">*</span> <span class="dv">2</span> <span class="op">+</span> <span class="dv">2</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">            min_idx <span class="op">=</span> idx</a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26">            <span class="cf">if</span> left <span class="op">&lt;</span> <span class="bu">len</span>(<span class="va">self</span>.heap) <span class="kw">and</span> <span class="va">self</span>.heap[left] <span class="op">&lt;</span> <span class="va">self</span>.heap[min_idx]:</a>
+<a class="sourceLine" id="cb2-27" data-line-number="27">                min_idx <span class="op">=</span> left</a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29">            <span class="cf">if</span> right <span class="op">&lt;</span> <span class="bu">len</span>(<span class="va">self</span>.heap) <span class="kw">and</span> <span class="va">self</span>.heap[right] <span class="op">&lt;</span> <span class="va">self</span>.heap[min_idx]:</a>
+<a class="sourceLine" id="cb2-30" data-line-number="30">                min_idx <span class="op">=</span> right</a>
+<a class="sourceLine" id="cb2-31" data-line-number="31"></a>
+<a class="sourceLine" id="cb2-32" data-line-number="32">            <span class="cf">if</span> min_idx <span class="op">==</span> idx:</a>
+<a class="sourceLine" id="cb2-33" data-line-number="33">                <span class="cf">break</span></a>
+<a class="sourceLine" id="cb2-34" data-line-number="34"></a>
+<a class="sourceLine" id="cb2-35" data-line-number="35">            temp <span class="op">=</span> <span class="va">self</span>.heap[idx]</a>
+<a class="sourceLine" id="cb2-36" data-line-number="36">            <span class="va">self</span>.heap[idx] <span class="op">=</span> <span class="va">self</span>.heap[min_idx]</a>
+<a class="sourceLine" id="cb2-37" data-line-number="37">            <span class="va">self</span>.heap[min_idx] <span class="op">=</span> temp</a>
+<a class="sourceLine" id="cb2-38" data-line-number="38">            idx <span class="op">=</span> min_idx</a>
+<a class="sourceLine" id="cb2-39" data-line-number="39"></a>
+<a class="sourceLine" id="cb2-40" data-line-number="40">        <span class="cf">return</span> item</a></code></pre></div> 
+</div>
+
+
+
