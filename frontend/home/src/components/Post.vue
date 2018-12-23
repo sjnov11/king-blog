@@ -1,15 +1,24 @@
 <template>
-  <div>
-    <div>{{this.$route.params.post}}</div>
-    <div>Post!!!!</div>
-    <div v-html="post">
-      here:
+  <div>    
+    <div class="post" v-html="post">      
     </div>
+    <div class="post">
+    <div class="loading" v-if="loading">
+      Loading...
     </div>
+
+    <div class="error" v-if="error">
+      {{ error }}
+    </div>
+
+    <div class="content" v-if="post">      
+      {{ post }}
+    </div>
+  </div>
+  </div>
 </template>
 
 <script>
-//import MathJax from 'mathjax'
 export default {
   name: "Post",
   data () {
@@ -20,23 +29,28 @@ export default {
     }
   },
   created () {
-    // 뷰가 생성되고 데이터가 이미 감시 되고 있을 때 데이터를 가져온다.
     this.fetchPost()
   },
   watch: {
-    // 라우트가 변경되면 메소드를 다시 호출됩니다.
     '$route' () {
-      this.fetchPost();
-      
-      this.window.console.log("mm..");
+      this.fetchPost();            
     }
   },
   methods: {
     fetchPost : function () {
+      this.error = this.post = null;
+      this.loading = true;
+    
       const path = "/blog/" + this.$route.params.post +".html";
       fetch(path)
         .then(response => response.text())
-        .then(data => (this.post = data))        
+        .then(data => {
+          this.post = data;
+          this.$nextTick().then(()=> {
+            window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
+          });
+        })
+        .catch( () => { this.error = true })
     }
   }
 };
