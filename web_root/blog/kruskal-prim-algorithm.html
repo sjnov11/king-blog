@@ -1,0 +1,105 @@
+ 
+<div class="header">
+  <h1 class="title">크루스칼 알고리즘과 프림 알고리즘(Kruskal’s and Prim’s Algorithm)</h1>
+  <p class="date">2018-10-02</p>
+  <p class="tags">algorithm</p>
+</div>
+
+
+<div class="body">
+<h1 id="kruskal-and-prim-algorithm">Kruskal and Prim Algorithm</h1>
+<p>크루스칼 알고리즘과 프림 알고리즘은 Undirected Graph 에서 최소 신장 트리 (MST) 를 구하는 알고리즘이다. 기본적으로 Greedy 알고리즘으로, 항상 최소 가중치의 간선을 선택한다. 다만 크루스칼 알고리즘은 간선을 중심으로 최소 간선으로 연결하면서 사이클 여부를 확인하고, 프림 알고리즘은 정점들을 중심으로 정점에서 나가는 간선 중 최소 간선을 선택한다.</p>
+<h2 id="크루스칼-알고리즘">크루스칼 알고리즘</h2>
+<h3 id="알고리즘-순서">알고리즘 순서</h3>
+<ol type="1">
+<li>그래프의 모든 간선(edge) 를 끊어 둔다.</li>
+<li>간선들을 가중치가 낮은 순서로 정렬한다.</li>
+<li>현재 가장 낮은 가중치를 갖는 간선을 선택한다.</li>
+<li>선택한 간선의 두 정점(vertex) 이 사이클이 형성하지 않는다면 두 정점을 연결한다.</li>
+<li>선택한 간선을 제외한다.</li>
+<li>V-1개의 간선이 선택되었으면 종료, 아니면 다시 3)부터 수행한다.</li>
+</ol>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/08/20/kruskal.jpg?raw=true" alt="Kruskal Algorithm" /><figcaption>Kruskal Algorithm</figcaption>
+</figure>
+<ol start="4" type="1">
+<li>에서 Cycle detection은 Union-Find 알고리즘을 이용한다.</li>
+</ol>
+<h3 id="시간-복잡도">시간 복잡도</h3>
+<p>2)에서 간선들의 정렬에 <span class="math inline">\(O(E\log{E})\)</span> 의 시간복잡도를, 3)에서 Cycle detection에 <span class="math inline">\(O(\log{V})\)</span> 를 최대 <span class="math inline">\(E\)</span> 번 수행하므로, <span class="math inline">\(O(E\log{V})\)</span> 의 시간복잡도를 갖는다. 여기서 <span class="math inline">\(E\)</span> 는 최대 <span class="math inline">\(V^2\)</span> 개 있을 수 있기 때문에, <span class="math inline">\(O(E\log{V})\)</span> 이다.</p>
+<h2 id="프림-알고리즘">프림 알고리즘</h2>
+<h3 id="알고리즘-순서-1">알고리즘 순서</h3>
+<ol type="1">
+<li>임의의 정점(vertex) 을 선택하여 MST에 포함시킨다.</li>
+<li>MST에 있는 정점과 MST에 없는 정점 사이의 간선(edge) 중 가중치가 최소인 간선을 찾는다.</li>
+<li>찾은 간선의 두 노드 중 MST에 없는 노드를 MST에 포함시킨다.</li>
+<li>모든 노드가 T에 포함될 때 까지 2)와 3)을 반복한다.</li>
+</ol>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/08/20/prim.jpg?raw=true" alt="Prim Algorithm" /><figcaption>Prim Algorithm</figcaption>
+</figure>
+<h3 id="c-코드">C++ 코드</h3>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="dt">int</span> prim(<span class="dt">int</span> start) {</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    priority_queue&lt;pair&lt;<span class="dt">int</span>, <span class="dt">int</span>&gt;&gt; q;</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    q.push(make_pair(<span class="dv">0</span>, start));</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">    </a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="dt">int</span> ret = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="dt">int</span> cnt = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="cf">while</span> (!q.empty()) {</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">        <span class="dt">int</span> cur = q.top().second;</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">        <span class="dt">int</span> cur_w = q.top().first;</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">        q.pop();</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">        <span class="cf">if</span> (visited[cur]) <span class="cf">continue</span>;</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">        </a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">        visited[cur] = <span class="kw">true</span>;</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">        ret += cur_w*(<span class="dv">-1</span>);</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">        cnt++;        </a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">        <span class="cf">if</span> (cnt == V) <span class="cf">break</span>;    <span class="co">// V 는 정점의 갯수</span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17">        <span class="cf">for</span> (<span class="kw">auto</span> next : adj_list[cur]) {</a>
+<a class="sourceLine" id="cb1-18" data-line-number="18">            <span class="dt">int</span> v = next.first;</a>
+<a class="sourceLine" id="cb1-19" data-line-number="19">            <span class="dt">int</span> w = next.second;</a>
+<a class="sourceLine" id="cb1-20" data-line-number="20"></a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">            q.push(make_pair(w*(<span class="dv">-1</span>), v));</a>
+<a class="sourceLine" id="cb1-22" data-line-number="22">        }</a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">    }</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">    <span class="cf">return</span> ret;</a>
+<a class="sourceLine" id="cb1-25" data-line-number="25">}</a></code></pre></div>
+<h3 id="python-코드">Python 코드</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1">V <span class="op">=</span> <span class="dv">4</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">adj_list <span class="op">=</span>[[] <span class="cf">for</span> v <span class="kw">in</span> <span class="bu">range</span> (V<span class="op">+</span><span class="dv">1</span>)]</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">visited <span class="op">=</span> [<span class="va">False</span> <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(V<span class="op">+</span><span class="dv">1</span>)]</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">def</span> addEdge(u, v, w):</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">    adj_list[u].append((w, v))</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">    adj_list[v].append((w, u))</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="kw">def</span> prim(s):</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">    <span class="im">import</span> heapq</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">    pq <span class="op">=</span> []</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">    <span class="cf">for</span> adj_v <span class="kw">in</span> adj_list[s]:</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">        heapq.heappush(pq, adj_v)</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">    visited[s] <span class="op">=</span> <span class="va">True</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">    answer <span class="op">=</span> <span class="dv">0</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">    <span class="cf">while</span> pq:</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">        w, v <span class="op">=</span> heapq.heappop(pq)</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19">        <span class="cf">if</span> visited[v]:</a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">            <span class="cf">continue</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">        <span class="cf">for</span> adj_v <span class="kw">in</span> adj_list[v]:</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">            heapq.heappush(pq, adj_v)</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">        visited[v] <span class="op">=</span> <span class="va">True</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24">        answer <span class="op">+=</span> w</a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26">    <span class="cf">return</span> answer</a></code></pre></div>
+<h3 id="시간-복잡도-1">시간 복잡도</h3>
+<p>하나의 정점(vertex) 에서 최대 <span class="math inline">\(V\)</span> 개의 간선 정보가 존재한다. 따라서, 최악의 경우 <span class="math inline">\(V\)</span> 번 pop을 하여야 다음 방문할 정점을 구할 수 있다. 이 경우, 이진 힙의 크기는 <span class="math inline">\(V\)</span> 이므로, 이진 힙에서 방문하지 않은 정점을 고를 때 최대 <span class="math inline">\(O(V\log{V})\)</span> 의 시간이 걸린다. (마지막 정점을 제외하고 모두 한번의 pop으로 선택되고, 마지막 정점은 나머지 모든 간선을 pop하는 경우도 amortized 로 같다)</p>
+<p>현재 정점과 연결된 다음 정점의 간선 정보를 이진 힙에 넣는 부분(while문에 중첩된 for문)에서는 모든 간선에 대해서 한번씩 수행된다. 따라서 시간 복잡도는 <span class="math inline">\(O(E\log{V})\)</span> 이다.</p>
+<p>따라서, 총 시간복잡도는 <span class="math inline">\(O(V\log{V}) + O(E\log{V})\)</span> 이므로 <span class="math inline">\(O(E\log{V})\)</span> 가 된다.</p>
+<h3 id="문제">문제</h3>
+<ul>
+<li></li>
+</ul> 
+</div>
+
+
+

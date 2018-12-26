@@ -10,6 +10,6 @@ update:
 	sudo setcap CAP_NET_BIND_SERVICE=+eip ./bin/main
 
 deploy:
-	git push git@54.180.105.111:~/blog_hook master
+	git push git@54.180.147.87:~/blog_hook master
 	
 	

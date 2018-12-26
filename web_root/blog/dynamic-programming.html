@@ -1,0 +1,39 @@
+ 
+<div class="header">
+  <h1 class="title">동적계획법(Dynamic Programming)</h1>
+  <p class="date">2018-08-26</p>
+  <p class="tags">algorithm</p>
+</div>
+
+
+<div class="body">
+<h1 id="dynamic-programming">Dynamic Programming</h1>
+<p>다이나믹 프로그래밍 문제는 기본적으로 주어진 큰 문제를 바로 풀기 어렵기 때문에 <strong><em>큰 문제를 작은 문제로 나눠서 푸는 알고리즘</em></strong> 이다. 예를 들어, 피보나치 수열을 구하는 문제(<span class="math inline">\(F_n = F_{n-1} +F_{n-2}\)</span>)를 살펴보자. 우리는 <span class="math inline">\(F_n\)</span> 을 구하기 위해 <span class="math inline">\(F_{n-1}\)</span> 과 <span class="math inline">\(F_{n-2}\)</span> 라는 작은 문제로 나눈다. 작은 문제들을 먼저 푼 다음, 이들의 합으로 큰 문제의 답을 구한다. 여기서 큰 문제와 작은 문제를 같은 방법으로 풀 수 있다. 다이나믹 프로그래밍 문제는 아래의 두가지 속성을 만족한다.</p>
+<p><em>1. Overlapping Subproblem</em> <em>2. Optimal Substructure</em></p>
+<h2 id="overlapping-subproblem">Overlapping Subproblem</h2>
+<p>다시 <span class="math inline">\(N\)</span> 번째 피보나치 수를 구하는 문제를 살펴보자. 우리는 <span class="math inline">\(F_n\)</span> 을 구하기 위해 <span class="math inline">\(F_{n-1}\)</span> 과 <span class="math inline">\(F_{n-2}\)</span> 의 작은 문제로 나누었다. <span class="math inline">\(F_{n-1}\)</span> 과 <span class="math inline">\(F_{n-2}\)</span> 도 충분히 큰 문제이므로 이들을 각각 (<span class="math inline">\(F_{n-2}, F_{n-3}\)</span>) 그리고 (<span class="math inline">\(F_{n-3}, F_{n-4}\)</span>) 의 작은 문제로 나눌 수 있을 것이다. 여기서 우리는 문제가 겹치는 부분을 찾을 수 있다.</p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/08/26/dp1.jpg?raw=true" alt="같은 색으로 되어있는 부분문제가 반복된다" /><figcaption>같은 색으로 되어있는 부분문제가 반복된다</figcaption>
+</figure>
+<h2 id="optimal-substructure">Optimal Substructure</h2>
+<p>문제가 <strong>Optimal substructure</strong> 라고 함은 <strong><em>문제의 정답을 작은 문제의 정답에서 구할 수 있다</em></strong>는 것이다. 예를 들어, <em>서울에서 부산</em>으로 가는 가장 짧은 길을 구하는 문제를 살펴보자. 가장 짧은 길이 대전과 대구를 순서로 거쳐야 한다면(서울-대전-대구-부산), <em>대전에서 부산</em>을 가는 가장 짧은 길(문제의 subproblem)은 반드시 대구를 거쳐야 한다.</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Shortest_path_optimal_substructure.svg/200px-Shortest_path_optimal_substructure.svg.png" /></p>
+<p>위에서 start가 서울이고 goal이 부산이라고 하자. 굵은 선으로 표현된 부분이 가장 짧은 거리(서울-대전-대구-부산) 이다. 이제 subproblem(wavy line) 을 살펴보자. 이 subproblem의 해답은 대전-대구-부산이 되어야만 한다. 만약, 대전-포항-부산이 더 짧다면, 문제의 답도 (서울-대전-포항-부산)이 되어야 한다.</p>
+<p>피보나치 수열을 살펴보자. <span class="math inline">\(F_n\)</span> 은 <span class="math inline">\(F_{n-1}\)</span> 과 <span class="math inline">\(F_{n-2}\)</span> 를 구하여 합하는 것으로 구할 수 있다. 다시말해, <strong><em>문제의 정답을 작은 문제의 정답을 합하는 것</em></strong>으로 구할 수 있다.</p>
+<p>문제가 Optimal Substructure를 만족한다면, 문제의 크기와 상관없이 어느 한 문제의 정답은 항상 일정하다. 예를 들어, <span class="math inline">\(F_{10}\)</span> 을 구하면서 구한 <span class="math inline">\(F_4\)</span> 의 값이나, <span class="math inline">\(F_9\)</span> 를 구하면서 구한 <span class="math inline">\(F_4\)</span> 의 값이나 항상 같다. 따라서, 각 문제에 대해서 한번만 풀고 문제의 정답을 “<strong>Memoization</strong>” 하면 문제를 다시 풀지 않아도 된다.</p>
+<h2 id="시간-복잡도">시간 복잡도</h2>
+<p>Optimal Substructure 에서 우리는 각 문제에 대해서 한번만 풀면 된다는 사실을 알았다. 따라서 시간복잡도는 <strong><em>풀어야 하는 문제의 수 x 문제 푸는 시간</em></strong> 이 된다. 보통 변수가 <span class="math inline">\(N\)</span> 으로 주어진다면, 문제는 <span class="math inline">\(1\)</span> ~ <span class="math inline">\(N\)</span> 까지 있으므로 <span class="math inline">\(O(N)\)</span> * <span class="math inline">\(O(1문제 푸는 시간)\)</span> 이다.</p>
+<h2 id="다이나믹-프로그래밍을-푸는-2가지-방법">다이나믹 프로그래밍을 푸는 2가지 방법</h2>
+<p>다이나믹을 푸는 방법에는 1. Top-down 방식과 2. Bottom-up 방식이 있다.</p>
+<h3 id="top-down">Top-down</h3>
+<p><em>1. 문제를 작은 문제로 나눈다.</em> <em>2. 작은 문제를 푼다.</em> <em>3. 작은 문제의 답을 통해 문제를 푼다.</em></p>
+<p>피보나치 수열을 예로,</p>
+<p><em>1. <span class="math inline">\(F_n\)</span> 을 <span class="math inline">\(F_{n-1}\)</span> 과 <span class="math inline">\(F_{n-2}\)</span> 로 나눈다.</em> <em>2. <span class="math inline">\(F_{n-1}\)</span>과 <span class="math inline">\(F_{n-2}\)</span>를 푼다.</em> <em>3. <span class="math inline">\(F_{n-1}\)</span> 과 <span class="math inline">\(F_{n-2}\)</span> 의 답을 가지고 <span class="math inline">\(F_n = F_{n-1}+F_{n-2}\)</span> 을 푼다.</em></p>
+<p>2.에서 <span class="math inline">\(F_{n-1}\)</span> 과 <span class="math inline">\(F_{n-2}\)</span> 를 풀기 위해 다시 재귀적으로 1. 에서 다시 시작한다.</p>
+<h3 id="bottom-up">Bottom-up</h3>
+<p><em>1. 가장 작은 크기의 문제부터 푼다.</em> <em>2. 앞서 풀었던 작은 문제의 답으로 부터 상대적으로 더 큰 문제를 푼다.</em> <em>3. 결과, 풀고자 하는 문제를 풀 수 있다.</em></p>
+<p>피보나치 수열을 예로, <em>1. <span class="math inline">\(F_1 = 1\)</span>, <span class="math inline">\(F_2 = 1\)</span> 이고 <span class="math inline">\(F_3\)</span> 부터 차례로 풀어 간다.</em> <em>2. <span class="math inline">\(F_3 = F_2 + F_1\)</span> 이다.</em> <em>3. 반복해서 <span class="math inline">\(F_n\)</span> 을 푼다.</em></p> 
+</div>
+
+
+

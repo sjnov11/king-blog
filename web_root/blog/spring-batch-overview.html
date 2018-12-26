@@ -1,0 +1,45 @@
+ 
+<div class="header">
+  <h1 class="title">[Spring Batch] Overview</h1>
+  <p class="date">2018-11-24</p>
+  <p class="tags">spring</p>
+  <p class="tags">batch</p>
+</div>
+
+
+<div class="body">
+<h1 id="spring-batch-overview">[Spring Batch] Overview</h1>
+<h2 id="what-is-batch-processing">What is Batch Processing?</h2>
+<p><strong>Batch processing</strong> 이란 일련의 자동화된 complex job 을 user interaction 없이 수행하는 것이다. 일반적으로 batch process는 <strong>대용량의 data와 지속실행</strong>이 특징이다.</p>
+<p>Batch process는 다음 경우에 보통 사용된다:</p>
+<ul>
+<li>Time-based event</li>
+<li>Large datasets에 반복적으로 수행</li>
+<li>트랜잭션 방식으로 data의 processing 과 validation</li>
+</ul>
+<h2 id="what-is-spring-batch">What is Spring Batch?</h2>
+<p>Spring batch는 batch application을 제작하기 쉽도록 도와주는 <strong>light weight framework</strong> 이다. bulk processing 외에도 spring batch는 다음과 같은 기능을 제공한다:</p>
+<ul>
+<li>Logging 과 Tracing</li>
+<li>Transaction 관리</li>
+<li>Job processing 통계</li>
+<li>Job restart</li>
+<li>Skip and Resource management</li>
+</ul>
+<h2 id="feature-of-spring-batch">Feature of Spring Batch</h2>
+<ul>
+<li><p>Flexibility - application의 processing 순서를 바꾸기 위해서는 XML 파일만 변경하면 된다.</p></li>
+<li><p>Maintainability - Spring batch job은 step들로 구성되어 있고, 각 step들은 분리, 테스트, 업데이트를 다른 step과 영향없이 진행할 수 있다.</p></li>
+<li><p>Scalability - Portioning technique들을 통해서 application을 parallel execution으로 scale하게 만들 수 있다.</p></li>
+<li><p>Reliability - Application에 failure가 발생했을 때, job을 정확히 실패한 지점에서 다시 수행할 수 있다.</p></li>
+<li><p>Support for multiple file formats</p></li>
+<li><p>Multiple ways to launch a job</p></li>
+</ul>
+<h3 id="reference">Reference</h3>
+<ul>
+<li>https://www.tutorialspoint.com/spring_batch/spring_batch_overview.htm</li>
+</ul> 
+</div>
+
+
+

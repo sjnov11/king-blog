@@ -1,0 +1,96 @@
+ 
+<div class="header">
+  <h1 class="title">분할 정복 기법(Divide and Conquer)의 대표적인 예제</h1>
+  <p class="date">2018-10-15</p>
+  <p class="tags">algorithm</p>
+</div>
+
+
+<div class="body">
+<h1 id="divide-and-conquer-examples">Divide and Conquer Examples</h1>
+<h2 id="binary-search">1. Binary Search</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="dt">int</span> binarySearch(vector&lt;<span class="dt">int</span>&gt; nums, <span class="dt">int</span> target) {</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="dt">int</span> l = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="dt">int</span> r = nums.size() - <span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="cf">while</span> (l &lt;= r) {</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">        <span class="dt">int</span> m = (l + r) / <span class="dv">2</span>;</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">        <span class="cf">if</span> (nums[m] == target) <span class="cf">return</span> m;</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">        <span class="cf">else</span> <span class="cf">if</span> (nums[m] &lt; target) {</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">            l = m + <span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">        }</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">        <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">            r = m - <span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">        }</a>
+<a class="sourceLine" id="cb1-14" data-line-number="14">    }</a>
+<a class="sourceLine" id="cb1-15" data-line-number="15">    <span class="cf">return</span> <span class="dv">-1</span>;</a>
+<a class="sourceLine" id="cb1-16" data-line-number="16">}</a></code></pre></div>
+<p><strong>Binary Search</strong> 는 탐색의 범위를 절반으로 줄여가면서 target을 찾는다. 탐색의 종료 조건을 잘 확인하자. l 이 r과 같은 경우는 탐색하는 범위가 1인 경우이고, 이 경우도 마찬가지로 확인해 주어야한다.</p>
+<h2 id="merge-sort">2. Merge Sort</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">// Conquer 과정</span></a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="dt">void</span> merge(vector&lt;<span class="dt">int</span>&gt;&amp; nums, <span class="dt">int</span> l, <span class="dt">int</span> m, <span class="dt">int</span> r) {</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="dt">int</span> idx = <span class="dv">0</span>;</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">    <span class="dt">int</span> lcur = l, lend = m;</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="dt">int</span> rcur = m + <span class="dv">1</span>, rend = r;</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">    <span class="dt">int</span> size = r - l + <span class="dv">1</span>;</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">    vector&lt;<span class="dt">int</span>&gt; temp(size);</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">    <span class="cf">while</span> (lcur &lt;= lend &amp;&amp; rcur &lt;= rend) {</a>
+<a class="sourceLine" id="cb2-10" data-line-number="10">        <span class="cf">if</span> (nums[lcur] &lt; nums[rcur]) temp[idx++] = nums[lcur++];</a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">        <span class="cf">else</span> temp[idx++] = nums[rcur++];</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">    }</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">    <span class="cf">while</span> (lcur &lt;= lend) {</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14">        temp[idx++] = nums[lcur++];</a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">    }</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16">    <span class="cf">while</span> (rcur &lt;= rend) {</a>
+<a class="sourceLine" id="cb2-17" data-line-number="17">        temp[idx++] = nums[rcur++];</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">    }</a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20">    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">0</span>; i &lt; size; i++) {</a>
+<a class="sourceLine" id="cb2-21" data-line-number="21">        nums[l + i] = temp[i];</a>
+<a class="sourceLine" id="cb2-22" data-line-number="22">    }</a>
+<a class="sourceLine" id="cb2-23" data-line-number="23">}</a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">// Divide 과정</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="dt">void</span> mergeSort(vector&lt;<span class="dt">int</span>&gt;&amp; nums, <span class="dt">int</span> l, <span class="dt">int</span> r) {</a>
+<a class="sourceLine" id="cb2-27" data-line-number="27">    <span class="cf">if</span> (l &gt;= r) <span class="cf">return</span>;</a>
+<a class="sourceLine" id="cb2-28" data-line-number="28">    <span class="dt">int</span> m = (l + r) / <span class="dv">2</span>;</a>
+<a class="sourceLine" id="cb2-29" data-line-number="29">    mergeSort(nums, l, m);</a>
+<a class="sourceLine" id="cb2-30" data-line-number="30">    mergeSort(nums, m + <span class="dv">1</span>, r);</a>
+<a class="sourceLine" id="cb2-31" data-line-number="31">    merge(nums, l, m, r);</a>
+<a class="sourceLine" id="cb2-32" data-line-number="32">}</a></code></pre></div>
+<p><strong>Merge Sort</strong> 는 sorting 할 범위를 최대한 작게 만든 다음, 범위를 차례로 늘여가면서 sorting 하는 방법이다. 범위를 줄여나갈 때, 현재 배열의 크기가 1보다 작으면(l <span class="math display">\[\geq\]</span> r) 더이상 나눌 수 없으므로 종료한다. 핵심은 <em>merge</em> 함수인데, 파라미터 l, m, r로 merge 하려고 하는 두 개의 sorting된 array를 가져와서 병합한다.</p>
+<h2 id="quick-sort">3. Quick Sort</h2>
+<div class="sourceCode" id="cb3"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="dt">int</span> partition(vector&lt;<span class="dt">int</span>&gt; &amp;nums, <span class="dt">int</span> left, <span class="dt">int</span> right) {</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">    <span class="co">// 시작점은 피벗을 어떤것으로 잡느냐에 따라 다르다.</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="dt">int</span> i = left, j = right;</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">    <span class="dt">int</span> pivot = nums[i++];</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">    <span class="cf">while</span> (<span class="kw">true</span>) {      </a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">        <span class="co">// 좌측에서는 피벗보다 큰 것을 고른다</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">        <span class="cf">while</span> (i &lt;= right &amp;&amp; nums[i] &lt;= pivot) {</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">            i++;</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">        }</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">        <span class="co">// 우측에서는 피벗보다 작은 것을 고른다</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">        <span class="cf">while</span> (j &gt;= left &amp;&amp; nums[j] &gt; pivot) {</a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">            j--;</a>
+<a class="sourceLine" id="cb3-14" data-line-number="14">        }</a>
+<a class="sourceLine" id="cb3-15" data-line-number="15">        <span class="cf">if</span> (i &gt;= j) <span class="cf">break</span>;</a>
+<a class="sourceLine" id="cb3-16" data-line-number="16">        swap(&amp;nums[i], &amp;nums[j]);</a>
+<a class="sourceLine" id="cb3-17" data-line-number="17">    } </a>
+<a class="sourceLine" id="cb3-18" data-line-number="18">    swap(&amp;nums[left], &amp;nums[j]);</a>
+<a class="sourceLine" id="cb3-19" data-line-number="19">    <span class="cf">return</span> j;</a>
+<a class="sourceLine" id="cb3-20" data-line-number="20">}</a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="dt">void</span> quickSort(vector&lt;<span class="dt">int</span>&gt; &amp;nums, <span class="dt">int</span> l, <span class="dt">int</span> r) {</a>
+<a class="sourceLine" id="cb3-23" data-line-number="23">    <span class="cf">if</span> (l &lt; r) {</a>
+<a class="sourceLine" id="cb3-24" data-line-number="24">        <span class="dt">int</span> m = partition(nums, l, r);</a>
+<a class="sourceLine" id="cb3-25" data-line-number="25">        quickSort(nums, l, m - <span class="dv">1</span>);</a>
+<a class="sourceLine" id="cb3-26" data-line-number="26">        quickSort(nums, m + <span class="dv">1</span>, r);</a>
+<a class="sourceLine" id="cb3-27" data-line-number="27">    }</a>
+<a class="sourceLine" id="cb3-28" data-line-number="28">}</a></code></pre></div>
+<p><strong>QuickSort</strong> 는 피벗을 하나 잡고 피벗의 좌측에는 피벗보다 작은 수를, 피벗의 우측에는 피벗보다 큰 수를 두는 <em>partion</em> 을 반복한다. <em>partion</em> 을 수행하면, 피벗의 위치는 정렬된 위치에 놓이므로 이를 제외하고 좌측, 우측에 대해서 quickSort를 재귀적으로 호출해주면 된다.</p> 
+</div>
+
+
+

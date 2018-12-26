@@ -1,0 +1,100 @@
+ 
+<div class="header">
+  <h1 class="title">플로이드-워셜 알고리즘(Floyd-Warshall Algorithm)</h1>
+  <p class="date">2018-08-24</p>
+  <p class="tags">algorithm</p>
+</div>
+
+
+<div class="body">
+<h1 id="floyd-warshall-algorithm">Floyd-Warshall Algorithm</h1>
+<p>플로이드-워셜 알고리즘은 그래프에서 최단 경로를 구하는 알고리즘 중 하나이다. 다익스트라와 벨만-포드 알고리즘은 한 정점에서 다른 모든 정점 사이의 최단 경로를 구하는 것과 달리, 플로이드-워셜 알고리즘은 모든 정점 사이의 최단 경로를 구한다.</p>
+<h2 id="dynamic-programming">Dynamic Programming</h2>
+<p>플로이드-워셜 알고리즘은 최단경로를 Dynamic Programming 형태의 문제로 정의한다. (<a href="https://ko.wikipedia.org/wiki/%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%9B%8C%EC%85%9C_%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98">위키백과</a> 참조)</p>
+<p>1에서 <span class="math display">\[N\]</span> 까지 번호가 매겨진 정점들을 갖는 그래프가 있다고 하자. <span class="math display">\[i\]</span> 에서 <span class="math display">\[j\]</span> 로 집합 <span class="math display">\[\{1,2,...,k\}\]</span> 의 정점들만을 경유지로 거치는 최단경로를 반환하는 함수 <span class="math display">\[shortestPath(i,j,k)\]</span> 를 생각한다.</p>
+<p>각각의 정점 쌍에 대해서, <span class="math display">\[shortestPath(i,j,k)\]</span> 다음 중 최단거리 이다.</p>
+<ol type="1">
+<li><p><span class="math display">\[k\]</span> 를 <strong>통과하지 않는</strong> 경로 (<span class="math display">\[\{1,..,k-1\}\]</span> 에 있는 정점만 거칠 수 있다)</p></li>
+<li><p><span class="math display">\[k\]</span> 를 <strong>통과 하는</strong> 경로 (<span class="math display">\[i\]</span> 에서 <span class="math display">\[k\]</span> 로 가는 경로와 <span class="math display">\[k\]</span> 에서 <span class="math display">\[j\]</span> 로 가는 경로 모두 <span class="math display">\[\{1,...,k-1\}\]</span> 에 있는 정점만 거칠 수 있다)</p></li>
+</ol>
+<p>(1)에서 <span class="math display">\[i\]</span> 에서 <span class="math display">\[j\]</span> 까지 <span class="math display">\[\{1,...,k-1\}\]</span> 의 정점만을 거쳐가는 경로 중 최선의 경로는 <span class="math display">\[shortestPath(i,j,k-1)\]</span> 이다.</p>
+<p>(2)의 경우는 <span class="math display">\[i\]</span> 에서 <span class="math display">\[k\]</span> 까지 <span class="math display">\[\{1,...,k-1\}\]</span> 정점만을 거쳐가는 최선의 경로와 <span class="math display">\[k\]</span> 에서 <span class="math display">\[j\]</span> 까지 <span class="math display">\[\{1,...,k-1\}\]</span> 정점만을 거쳐서 가는 최선의 경로의 합 <span class="math display">\[shortesPath(i,k,k-1) +shortestPath(k,j,k-1)\]</span> 이다.</p>
+<p><span class="math display">\[w(i,j)\]</span> 를 정점 <span class="math display">\[i\]</span> 와 <span class="math display">\[j\]</span> 간선의 가중치라고하면 <span class="math display">\[shortestPath(i,j,k)\]</span> 는 다음과 같은 재귀식으로 나타낼 수 있다. <span class="math display">\[
+shortestPath(i,j,0) = w(i,j)
+\]</span></p>
+<p><span class="math display">\[
+shortestPath(i,j,k) =\\ \min \begin{pmatrix}(shortestPath(i,j,k-1),\\shortestPath(i,k,k-1) + shortestPath(k,j,k-1)) \end{pmatrix} \\
+\]</span></p>
+<h2 id="직관적-해석">직관적 해석</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cpp"><code class="sourceCode cpp"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co">// dp배열은 그래프를 나타내는 인접행렬</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="cf">for</span> (<span class="dt">int</span> k = <span class="dv">1</span>; k &lt;= V; k++) {</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">    <span class="cf">for</span> (<span class="dt">int</span> i = <span class="dv">1</span>; i &lt;= V; i++) {</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">        <span class="cf">for</span> (<span class="dt">int</span> j = <span class="dv">1</span>; j &lt;= V; j++) {</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">            <span class="cf">if</span> (dp[i][j] &gt; dp[i][k] + dp[k][j])</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">                dp[i][j] = dp[i][k] + dp[k][j];</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">        }</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">    }</a>
+<a class="sourceLine" id="cb1-9" data-line-number="9">}</a></code></pre></div>
+<p>코드에서 <span class="math display">\[k\]</span> 는 거쳐가는 정점을, <span class="math display">\[i\]</span> 와 <span class="math display">\[j\]</span> 는 시작과 끝 정점을 의미한다.</p>
+<p><span class="math display">\[i\]</span> 와 <span class="math display">\[j\]</span> 의 반복문은 모든 정점 사이(간선)에 대해서 테스트 함을 말한다. 초기에는 간선들의 가중치가 들어있다.</p>
+<p><span class="math display">\[k\]</span> 반복문에서 기존까지의 (<span class="math display">\[\{1,...,k-1\}\]</span> 거치는 경우를 포함하여) 모든 정점 사이의 거리보다 <span class="math display">\[k\]</span> 를 거쳐가는 게 더 짧은지를 확인한다.</p>
+<p>다음의 그래프를 살펴보자.</p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/08/24/floyd-warshall.png?raw=true" alt="floyd-warshall.png" /><figcaption>floyd-warshall.png</figcaption>
+</figure>
+<p>우리는 거쳐갈 정점에 대해서 모두 탐색을 해야한다. 그래프의 초기 거리는 다음과 같다.</p>
+<p><span class="math display">\[
+A^0=\begin{bmatrix} 0 &amp; 3 &amp; \infty &amp; 7 
+                \\ 8 &amp; 0 &amp; 2 &amp;\infty
+                \\ 5 &amp; \infty &amp; 0 &amp; 1
+                \\ 2 &amp; \infty &amp; \infty &amp; 0\end{bmatrix}
+\]</span></p>
+<p><span class="math display">\[ A^0\]</span> 는 그래프를 인접행렬로 나타낸 것과 같으며, 한 정점에서 중간에 다른 정점을 거치지 않고 바로 다른 정점을 가는 길이이다.</p>
+<p>이번엔 정점 1을 거치는 경우를 추가해서 나타내보자. 정점 1을 거치는 경우가 안 거치는 경우보다 짧다면 update 시켜준다. 결과, 다음과 같은 인접행렬이 나온다.</p>
+<p><span class="math display">\[
+A^1 =   \begin{bmatrix} 
+        0 &amp; 3 &amp; \infty &amp; 7\\
+        8 &amp; 0 &amp; 2 &amp; 15\\
+        5 &amp; 8 &amp; 0 &amp; 1\\
+        2 &amp; 8 &amp; \infty &amp; 0
+        \end{bmatrix}
+\]</span></p>
+<p>정점 2를 거치는 경우를 추가해서 나타내면 다음과 같다. 이 행렬은 정점 1 또는 정점 2를 거치는 경우와 거치지 않고 바로 가는 경우 모두를 포함한다.</p>
+<p><span class="math display">\[
+A^2 =   \begin{bmatrix} 
+        0 &amp; 3 &amp; 5 &amp; 7\\
+        8 &amp; 0 &amp; 2 &amp; 15\\
+        5 &amp; 8 &amp; 0 &amp; 1\\
+        2 &amp; 5 &amp; 7 &amp; 0
+        \end{bmatrix}
+\]</span></p>
+<p>계속해서 정점 3을 거치는 경우, 정점 4를 거치는 경우를 추가해서 나타내면 다음과 같다.</p>
+<p><span class="math display">\[
+A^3 =   \begin{bmatrix} 
+        0 &amp; 3 &amp; 5 &amp; 6\\
+        7 &amp; 0 &amp; 2 &amp; 3\\
+        5 &amp; 8 &amp; 0 &amp; 1\\
+        2 &amp; 5 &amp; 7 &amp; 0
+        \end{bmatrix}
+\ \ \ \ 
+A^4 =   \begin{bmatrix} 
+        0 &amp; 3 &amp; 5 &amp; 6\\
+        5 &amp; 0 &amp; 2 &amp; 3\\
+        3 &amp; 6 &amp; 0 &amp; 1\\
+        2 &amp; 5 &amp; 7 &amp; 0
+        \end{bmatrix}
+\]</span></p>
+<p>모든 정점을 거치는 경우를 계산한 <span class="math display">\[A^4\]</span> 가 우리가 구하고자 하는 정답이 된다.</p>
+<p>위 과정을 다시 살펴보자. <span class="math display">\[A^k\]</span> 는 1부터 <span class="math display">\[k\]</span> 까지의 정점을 거칠 수 있을 때의 최단 거리를 나타낸다. 이는 <span class="math display">\[A^{k-1}\]</span> 인 1부터 <span class="math display">\[k-1\]</span> 까지 정점을 거칠 수 있을 때의 최단 거리를 이용해서 구할 수 있다. 식으로 나타내면 다음과 같다.</p>
+<p><span class="math display">\[
+A^k[i][j] = \min(A^{k-1}[i][j], A^{k-1}[i][k] + A^{k-1}[k][j])
+\]</span></p>
+<p>이전의 sub problem의 optimal solution 을 통해 최종 optimal solution을 구하므로 dynamic programming의 형태이다. 위 문제에서 <span class="math display">\[shortestPath(i, j, k) \]</span> 는 3개의 파라미터를 가지고 있지만, <span class="math display">\[k\]</span> 는 직전의 <span class="math display">\[k-1\]</span> 만을 사용하므로 2차원 배열로 충분히 해결할 수 있다.</p>
+<h2 id="reference">Reference</h2>
+<ul>
+<li><a href="https://ko.wikipedia.org/wiki/%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%9B%8C%EC%85%9C_%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98"><strong>위키백과-플로이드 워셜 알고리즘</strong></a></li>
+</ul> 
+</div>
+
+
+
