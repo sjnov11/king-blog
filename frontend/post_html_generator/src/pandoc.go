@@ -7,16 +7,16 @@ import (
 )
 
 const (
-	PostTemplatePath = "./assets/template/post.html"
-	PostHTMLDir      = "../home/public/blog/"
+	TemplatePath = "./assets/template/post.html"
+	HTMLDir      = "../home/public/blog/"
 )
 
 func generatePostHTML(path string, slug string) error {
 	cmd := exec.Command("pandoc",
 		path, "-f", "markdown",
 		"-t", "html", "-s", "-o",
-		PostHTMLDir+slug+".html", "--mathjax",
-		"--template="+PostTemplatePath)
+		HTMLDir+slug+".html", "--mathjax",
+		"--template="+TemplatePath)
 	err := cmd.Run()
 	if err != nil {
 		log.Println("[pandoc] ", err)

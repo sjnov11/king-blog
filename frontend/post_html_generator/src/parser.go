@@ -48,7 +48,7 @@ func getValue(key string, yaml string) (string, error) {
 }
 
 // Return yaml key-value map
-func buildKeyValueMap(yaml string) (map[string]string, error) {
+func buildYAMLMap(yaml string) (map[string]string, error) {
 	yamlMap := make(map[string]string)
 	for _, key := range keys {
 		value, err := getValue(key, yaml)
@@ -60,11 +60,13 @@ func buildKeyValueMap(yaml string) (map[string]string, error) {
 	return yamlMap, nil
 }
 
+// Make JSON key:value pair string. e.g) "key": "value"
 func buildJSONString(key string, value string) string {
 	if key != "tags" {
 		return `"` + key + `": "` + value + `"`
 	}
 
+	// Handle value list
 	value = strings.Trim(value, "[]")
 	tags := strings.Split(value, ",")
 
@@ -79,13 +81,14 @@ func buildJSONString(key string, value string) string {
 	return `"` + key + `": ` + valueJSON
 }
 
+// Get YAML JSON bytes from input
 func parse(post []byte) ([]byte, error) {
 	yaml, err := getYAML(post)
 	if err != nil {
 		log.Println("[parse] ", err)
 		return nil, errors.New("Fail to parse post")
 	}
-	yamlMap, err := buildKeyValueMap(yaml)
+	yamlMap, err := buildYAMLMap(yaml)
 	if err != nil {
 		log.Println("[parse] ", err)
 		return nil, errors.New("Fail to parse post")

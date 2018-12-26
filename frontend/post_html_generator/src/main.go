@@ -2,48 +2,37 @@ package main
 
 import (
 	"io/ioutil"
-	"log"
 	"path/filepath"
 )
 
 const (
-	// PostDir : location of blog posts md
-	PostDir = "../home/public/blog/markdown/"
-	HTMLDir = "../home/public/blog/"
-	WebDir  = "/blog/"
+	MarkDownDir = "../home/public/blog/markdown/"
+	WebDir      = "/blog/"
 )
 
 func main() {
-	files, err := ioutil.ReadDir(PostDir)
-	if err != nil {
-		log.Println("[main] ", err)
-		log.Fatal(err)
-	}
-	var metaDataList []*MetaData
+	files, err := ioutil.ReadDir(MarkDownDir)
+	check(err)
+
+	var postMetaList []*PostMeta
 
 	for _, file := range files {
-		path := PostDir + file.Name()
-		if filepath.Ext(path) != ".md" {
+		filePath := MarkDownDir + file.Name()
+		if filepath.Ext(filePath) != ".md" {
 			continue
 		}
-		content, err := ioutil.ReadFile(path)
-		if err != nil {
-			log.Println("[main] ", err, "(", path, ")")
-			log.Fatal(err)
-		}
 
-		metaData, err := buildMetaData(content, file.Name())
-		if err != nil {
-			log.Println("[main] ", err, "(", path, ")")
-			log.Fatal(err)
-		}
+		content, err := ioutil.ReadFile(filePath)
+		check(err)
 
-		err = generatePostHTML(path, metaData.Slug)
-		if err != nil {
-			log.Println("[main] ", err, "(", path, ")")
-			log.Fatal(err)
-		}
-		metaDataList = append(metaDataList, metaData)
+		// Get metadata of post
+		postMeta, err := buildPostMeta(content, file.Name())
+		check(err)
+		postMetaList = append(postMetaList, postMeta)
+
+		// Generate HTML using markdown
+		err = generatePostHTML(filePath, postMeta.Slug)
+		check(err)
 	}
-	generateJSON(metaDataList)
+	generateJSON(postMetaList)
 }

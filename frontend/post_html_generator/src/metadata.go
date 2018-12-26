@@ -7,36 +7,37 @@ import (
 	"strings"
 )
 
-type MetaData struct {
+type PostMeta struct {
 	Title string   `json:"title"`
 	Slug  string   `json:"slug"`
 	Date  string   `json:"date"`
 	Tags  []string `json:"tags"`
-	Uri   string   `json:"uri"`
+	URI   string   `json:"uri"`
 }
 
-func (m *MetaData) setUri(uri string) {
-	m.Uri = uri
+func (m *PostMeta) setURI(uri string) {
+	m.URI = uri
 	return
 }
 
-func buildMetaData(post []byte, fileName string) (*MetaData, error) {
-	metaDataJSON, err := parse(post)
-	if err != nil {
-		log.Println("[metadata] ", err)
-		return nil, errors.New("Fail to build metadata structure")
-	}
+// Build PostMeta structure of post
+func buildPostMeta(post []byte, fileName string) (*PostMeta, error) {
 	uri := WebDir + fileName
+	postMetaJSON, err := parse(post)
+	// if err != nil {
+	// 	log.Println("[metadata] ", err)
+	// 	return nil, errors.New("Fail to build metadata structure")
+	// }
+	check(err)
 
-	metaData := new(MetaData)
-	if err := json.Unmarshal(metaDataJSON, metaData); err != nil {
+	postMeta := new(PostMeta)
+	if err := json.Unmarshal(postMetaJSON, postMeta); err != nil {
 		log.Println("[metadata]", err)
 		return nil, errors.New("Fail to build metadata structure")
 	}
-	uri = strings.Replace(uri, fileName, metaData.Slug, 1)
-	//uri = uri[:strings.LastIndex(uri, ".")]
-	metaData.setUri(uri)
-	log.Println(uri)
 
-	return metaData, nil
+	uri = strings.Replace(uri, fileName, postMeta.Slug, 1)
+	postMeta.setURI(uri)
+
+	return postMeta, nil
 }
