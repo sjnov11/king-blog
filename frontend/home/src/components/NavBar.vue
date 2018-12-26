@@ -57,8 +57,7 @@ export default {
 .navbar-brand {
   color: #404040 !important;
 }
-.navbar-brand:hover,
-.navbar-brand:focus {
+.navbar-brand:hover {
   color: rgba(0, 0, 0, 0.5) !important;
 }
 .navbar-search {
