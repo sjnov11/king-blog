@@ -2,8 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
-	"log"
 	"strings"
 )
 
@@ -21,23 +19,15 @@ func (m *PostMeta) setURI(uri string) {
 }
 
 // Build PostMeta structure of post
-func buildPostMeta(post []byte, fileName string) (*PostMeta, error) {
+func buildPostMeta(post []byte, fileName string) *PostMeta {
 	uri := WebDir + fileName
-	postMetaJSON, err := parse(post)
-	// if err != nil {
-	// 	log.Println("[metadata] ", err)
-	// 	return nil, errors.New("Fail to build metadata structure")
-	// }
-	check(err)
+	postMetaJSON := parse(post)
 
 	postMeta := new(PostMeta)
-	if err := json.Unmarshal(postMetaJSON, postMeta); err != nil {
-		log.Println("[metadata]", err)
-		return nil, errors.New("Fail to build metadata structure")
-	}
-
+	err := json.Unmarshal(postMetaJSON, postMeta)
+	check(err)
 	uri = strings.Replace(uri, fileName, postMeta.Slug, 1)
 	postMeta.setURI(uri)
 
-	return postMeta, nil
+	return postMeta
 }

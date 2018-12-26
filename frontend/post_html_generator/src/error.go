@@ -1,10 +1,12 @@
 package main
 
-import "log"
+import (
+	"log"
+)
 
 // Error check helper
 func check(err error) {
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("[Error Fatal] ====== %+v ======", err)
 	}
 }

@@ -14,25 +14,22 @@ func main() {
 	files, err := ioutil.ReadDir(MarkDownDir)
 	check(err)
 
-	var postMetaList []*PostMeta
+	var postMetaSlice []*PostMeta
 
 	for _, file := range files {
-		filePath := MarkDownDir + file.Name()
-		if filepath.Ext(filePath) != ".md" {
+		if filepath.Ext(file.Name()) != ".md" {
 			continue
 		}
-
+		filePath := MarkDownDir + file.Name()
 		content, err := ioutil.ReadFile(filePath)
 		check(err)
 
 		// Get metadata of post
-		postMeta, err := buildPostMeta(content, file.Name())
-		check(err)
-		postMetaList = append(postMetaList, postMeta)
+		postMeta := buildPostMeta(content, file.Name())
+		postMetaSlice = append(postMetaSlice, postMeta)
 
 		// Generate HTML using markdown
-		err = generatePostHTML(filePath, postMeta.Slug)
-		check(err)
+		generatePostHTML(filePath, postMeta.Slug)
 	}
-	generateJSON(postMetaList)
+	generateJSON(postMetaSlice)
 }

@@ -6,15 +6,15 @@ import (
 )
 
 // Generate posts' metadata JSON file
-func generateJSON(postMetaList []*PostMeta) {
+func generateJSON(postMetaSlice []*PostMeta) {
 	wrapper := struct {
 		Posts []*PostMeta `json:"posts"`
 	}{
-		postMetaList,
+		postMetaSlice,
 	}
 	f, err := os.Create(HTMLDir + "list.json")
-	check(err)
 	defer f.Close()
+	check(err)
 
 	b, err := json.Marshal(wrapper)
 	check(err)

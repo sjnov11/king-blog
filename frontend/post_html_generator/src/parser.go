@@ -1,10 +1,10 @@
 package main
 
 import (
-	"errors"
 	"fmt"
-	"log"
 	"strings"
+
+	"github.com/pkg/errors"
 )
 
 var (
@@ -82,17 +82,11 @@ func buildJSONString(key string, value string) string {
 }
 
 // Get YAML JSON bytes from input
-func parse(post []byte) ([]byte, error) {
+func parse(post []byte) []byte {
 	yaml, err := getYAML(post)
-	if err != nil {
-		log.Println("[parse] ", err)
-		return nil, errors.New("Fail to parse post")
-	}
+	check(err)
 	yamlMap, err := buildYAMLMap(yaml)
-	if err != nil {
-		log.Println("[parse] ", err)
-		return nil, errors.New("Fail to parse post")
-	}
+	check(err)
 
 	var jsonStrings []string
 	for _, key := range keys {
@@ -101,5 +95,5 @@ func parse(post []byte) ([]byte, error) {
 	}
 	yamlJSON := "{" + strings.Join(jsonStrings, ",") + "}"
 
-	return []byte(yamlJSON), nil
+	return []byte(yamlJSON)
 }
