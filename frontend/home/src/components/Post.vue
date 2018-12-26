@@ -8,7 +8,7 @@
     </div>
 
     <div class="error" v-if="error">
-      {{ error }}
+      There is some problem. {{ error }}
     </div>
 
     <div class="content" v-if="post">      
@@ -46,11 +46,12 @@ export default {
         .then(response => response.text())
         .then(data => {
           this.post = data;
+          // Do mathjax rendering when all DOM is loaded
           this.$nextTick().then(()=> {
             window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
           });
         })
-        .catch( () => { this.error = true })
+        .catch( (err) => { this.error = err })
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="!this.$route.params.post">
-      <ul v-for="post in postMetaData.list" :key="post.title">
+      <ul v-for="post in postMetaData.index" :key="post.title">
         <router-link :to="post.uri">{{post.title}}</router-link>
         <p>{{post.date}}</p>
       </ul>

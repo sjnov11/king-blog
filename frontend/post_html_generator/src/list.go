@@ -8,7 +8,7 @@ import (
 // Generate posts' metadata JSON file
 func generateJSON(postMetaSlice []*PostMeta) {
 	wrapper := struct {
-		Posts []*PostMeta `json:"posts"`
+		Index []*PostMeta `json:"index"`
 	}{
 		postMetaSlice,
 	}
