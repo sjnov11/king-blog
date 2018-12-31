@@ -1,5 +1,5 @@
 <template>
-  <div class="about-container">
+  <div class="about">
     <img>
     <div class="profile">
       <div class="record">
@@ -21,8 +21,8 @@
         <span class="text">Seoul, South Korea</span>
       </div>
 
-      <footer>
-        <div class="footer-container">
+      
+        <div class="footer">
           <span class="icon">
             <a
               href="https://docs.google.com/document/d/1sNvgFoduVu6Hwt1E3Iq1Hk-MJSHUKuYysahcdnc4wdI/edit#"
@@ -52,7 +52,7 @@
             </a>
           </span>
         </div>
-      </footer>
+      
     </div>
   </div>
 </template>
@@ -78,16 +78,16 @@ export default {
   margin-right: 12px;
   text-align: center;
 }
-footer {
+.footer {
   margin-top: 50px;
 }
-footer a {
+.footer a {
   color: #404040;
 }
-footer a:hover {
+.footer a:hover {
   color: #008aff;
 }
-footer .icon {
+.footer .icon {
   margin-right: 22px;
 }
 </style>

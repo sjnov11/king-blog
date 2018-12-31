@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <NavBar/>
-    <PageTitle/>
+    <div class="header">
+      <NavBar/>
+      <PageTitle/>
+    </div>
 
     <div class="main container">
       <router-view/>
@@ -23,11 +25,22 @@ export default {
 
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  
+}
+#app .main a {
+  color: #404040;
+} 
+#app .main a:hover {
+  color: rgba(0, 0, 0, 0.5) !important;
+  text-decoration-line: none;
+}
+#app .header {
+  font-family: "Arial", sans-serif;
+   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #404040;
-  margin-top: 0px;
+  margin-bottom: 70px;
 }
+
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="title-container">
-    <h1>Seungjun Oh</h1>
+    <h1>SEUNGJUN OH</h1>
     <hr class="hr-small">
   </div>
 </template>
@@ -15,17 +15,17 @@ export default {
 </script>
 
 <style scoped>
-.title-container {
+.title-container {  
   margin-bottom: 50px;
 }
 .title-container h1 {
-  font-size: 50px;
+  font-size: 40px;
   margin-bottom: 10px;
   font-weight: 800;
 }
 @media screen and (min-width: 768px) {
   .title-container h1 {
-    font-size: 80px;
+    font-size: 70px;
   }
 }
 

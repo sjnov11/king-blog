@@ -2,7 +2,6 @@
   <div>    
     <div class="post" v-html="post">      
     </div>
-    <div class="post">
     <div class="loading" v-if="loading">
       Loading...
     </div>
@@ -10,7 +9,6 @@
     <div class="error" v-if="error">
       There is some problem. {{ error }}
     </div>
-  </div>
   </div>
 </template>
 
@@ -55,5 +53,15 @@ export default {
 </script>
 
 <style scoped>
+.loading {
+  text-align: center;
+}
+
+.post >>> .post-header {
+  text-align: center;
+}
+.body {
+  text-align: center;
+}
 
 </style>

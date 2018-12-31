@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"path/filepath"
 )
@@ -21,6 +22,7 @@ func main() {
 			continue
 		}
 		filePath := MarkDownDir + file.Name()
+		fmt.Println("[Processing] " + file.Name())
 		content, err := ioutil.ReadFile(filePath)
 		check(err)
 
