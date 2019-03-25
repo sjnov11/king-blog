@@ -1,15 +1,16 @@
 <template>
-  <div>
+  <div>    
     <div class="post-list" v-if="!this.$route.params.post">
       <ul v-for="post in postMetaData.index" :key="post.title">
         <router-link class="post-title header" :to="post.uri">{{post.title}}</router-link>
         <p>{{post.date}}</p>
         <div class="post-tags">
-        <router-link to="/" class="post-tag" v-for="tag in post.tags" :key="tag">{{tag}}</router-link>
+          <router-link to="/" class="post-tag" v-for="tag in post.tags" :key="tag">{{tag}}</router-link>
         </div>
       </ul>
     </div>
-    <router-view></router-view>
+    <div>{{postMetaData}}</div>
+    <router-view :post-meta="postMetaData"/>
   </div>
 </template>
 

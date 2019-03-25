@@ -1,5 +1,6 @@
 <template>
-  <div>    
+  <div>   
+    <div>{{post-meta}}</div>
     <div class="post" v-html="post">      
     </div>
     <div class="loading" v-if="loading">
@@ -15,6 +16,7 @@
 <script>
 export default {
   name: "Post",
+  props: ["post-meta"],
   data () {
     return {
       loading: false,

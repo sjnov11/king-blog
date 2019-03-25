@@ -2,7 +2,7 @@
   <div id="app">
     <div class="header">
       <NavBar/>
-      <PageTitle/>
+      <PageTitle title="king"/>
     </div>
 
     <div class="main container">

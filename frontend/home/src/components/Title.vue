@@ -1,6 +1,6 @@
 <template>
   <div class="title-container">
-    <h1>SEUNGJUN OH</h1>
+    <h1>{{ title }}</h1>
     <hr class="hr-small">
   </div>
 </template>
