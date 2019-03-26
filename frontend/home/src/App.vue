@@ -2,7 +2,6 @@
   <div id="app">
     <div class="header">
       <NavBar/>
-      <PageTitle title="king"/>
     </div>
 
     <div class="main container">
@@ -13,16 +12,17 @@
 
 <script>
 import NavBar from "./components/NavBar.vue";
-import PageTitle from "./components/Title.vue";
+
 export default {
   name: "app",
   components: {
     NavBar,
-    PageTitle
   }
 };
 </script>
 
+<!--#008aff-->
+<!--rgba(0, 0, 0, 0.5)-->
 <style>
 #app {
   
@@ -31,6 +31,7 @@ export default {
   color: #404040;
 } 
 #app .main a:hover {
+  
   color: rgba(0, 0, 0, 0.5) !important;
   text-decoration-line: none;
 }

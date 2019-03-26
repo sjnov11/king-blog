@@ -1,4 +1,5 @@
 <template>
+
   <div>   
     <div>{{post-meta}}</div>
     <div class="post" v-html="post">      
@@ -14,9 +15,11 @@
 </template>
 
 <script>
+import PageTitle from "./Title.vue";
 export default {
   name: "Post",
   props: ["post-meta"],
+  components: PageTitle,
   data () {
     return {
       loading: false,

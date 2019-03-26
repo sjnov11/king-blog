@@ -8,9 +8,12 @@
 <script>
 export default {
   name: "PageTitle",
-  prop: {
-    title: String
-  }
+  data: function() {
+    return {
+    title: ""
+    };
+  },
+ 
 };
 </script>
 
