@@ -16,7 +16,8 @@ import {
   faFileAlt,
   faEnvelope
 } from "@fortawesome/free-solid-svg-icons";
-import { faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
+
+import { faGithub, faTwitter, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import {
   FontAwesomeIcon,
   FontAwesomeLayers
@@ -32,9 +33,10 @@ library.add(
   faUserGraduate,
   faHome,
   faFileAlt,
-  faEnvelope
+  faEnvelope,
 );
-library.add(faGithub, faTwitter);
+library.add(faGithub, faTwitter, faLinkedin);
+
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("font-awesome-layers", FontAwesomeLayers);
 Vue.config.productionTip = false;

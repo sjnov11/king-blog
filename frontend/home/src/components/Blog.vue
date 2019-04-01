@@ -9,7 +9,6 @@
         </div>
       </ul>
     </div>
-    <div>{{postMetaData}}</div>
     <router-view :post-meta="postMetaData"/>
   </div>
 </template>

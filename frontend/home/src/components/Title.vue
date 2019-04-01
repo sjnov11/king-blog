@@ -10,7 +10,7 @@ export default {
   name: "PageTitle",
   data: function() {
     return {
-    title: ""
+    title: "SeungJun Oh"
     };
   },
  

@@ -1,6 +1,11 @@
 <template>
   <div class="about">
     <img>
+    <i class="fab fa-linkedin"></i>
+    <div class="title-container">
+      <h1>Seung-jun Oh</h1>
+      <hr class="hr-small">
+    </div>
     <div class="profile">
       <div class="record">
         <span class="icon">
@@ -21,20 +26,22 @@
         <span class="text">Seoul, South Korea</span>
       </div>
 
-      
         <div class="footer">
           <span class="icon">
-            <a
-              href="https://docs.google.com/document/d/1sNvgFoduVu6Hwt1E3Iq1Hk-MJSHUKuYysahcdnc4wdI/edit#"
+            <a              
               title="resume"
               target="_blank"
             >
               <font-awesome-layers class="fa-3x">
+                <a href="https://www.linkedin.com/in/seungjun-oh" title="linkedin" target="_blank">
                 <font-awesome-icon icon="circle"></font-awesome-icon>
-                <font-awesome-icon icon="file-alt" class="fa-inverse" transform="shrink-7"></font-awesome-icon>
+                <font-awesome-icon :icon="['fab','linkedin']" class="fa-inverse" transform="shrink-7"></font-awesome-icon>
+                <i class="fab fa-linkedin"></i>
+                </a>
               </font-awesome-layers>
             </a>
           </span>
+          
           <span class="icon">
             <a href="https://github.com/sjnov11" title="github" target="_blank">
               <font-awesome-layers class="fa-3x">
@@ -89,5 +96,28 @@ export default {
 }
 .footer .icon {
   margin-right: 22px;
+}
+.title-container {  
+  margin-bottom: 50px;
+  text-align: center;
+  color: #404040;
+}
+.title-container h1 {
+  font-size: 45px;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+@media screen and (min-width: 768px) {
+  .title-container h1 {
+    font-size: 70px;
+  }
+}
+
+.hr-small {
+  max-width: 150px;
+  margin: 25px auto;
+  border-width: 4px;
+  border-color: inherit;
+  border-radius: 3px;
 }
 </style>
