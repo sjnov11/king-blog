@@ -3,13 +3,13 @@ $if(title)$
 <div class="post-header">
   <h1 class="post-title">$title$</h1>
 $if(subtitle)$
-  <p class="post-subtitle">$subtitle$</p>
+  <div class="post-subtitle">$subtitle$</div>
 $endif$
 $for(author)$
-  <p class="post-author">$author$</p>
+  <div class="post-author">$author$</div>
 $endfor$
 $if(date)$
-  <p class="post-date">$date$</p>
+  <div class="post-date">$date$</div>
 $endif$
   <div class="post-tags">
 $for(tags)$
@@ -22,7 +22,7 @@ $endif$
 $if(toc)$
   <nav id="$idprefix$TOC">$table-of-contents$</nav>
 $endif$
-
+<hr class="hr-small">
 <div class="body">
 $body$ 
 </div>

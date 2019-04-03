@@ -1,8 +1,7 @@
 <template>
 
-  <div>   
-    <div>{{post-meta}}</div>
-    <div class="post" v-html="post">      
+  <div class="post">   
+    <div class="post-html" v-html="post">      
     </div>
     <div class="loading" v-if="loading">
       Loading...
@@ -45,13 +44,13 @@ export default {
         .then(response => response.text())
         .then(data => {
           this.post = data;
-          this.loading = null;
+          this.loading = false;
           // Do mathjax rendering when all DOM is loaded
           this.$nextTick().then(()=> {
             window.MathJax.Hub.Queue(["Typeset", window.MathJax.Hub]);
           });
         })
-        .catch( (err) => { this.error = err })
+        .catch( (err) => { this.error = err } )
     }
   }
 };
@@ -62,11 +61,26 @@ export default {
   text-align: center;
 }
 
+.post {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
 .post >>> .post-header {
   text-align: center;
 }
-.body {
-  text-align: center;
+.post >>> .body {
+  text-align: left;
 }
 
+
+.post >>> .body img {
+  width: 75%;
+  height: 75%;
+  margin: auto;
+}
+
+img {
+  
+}
 </style>

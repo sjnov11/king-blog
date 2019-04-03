@@ -6,9 +6,6 @@ date: 2018-10-02
 categories: algorithm
 tags: [algorithm]
 ---
-
-# Kruskal and Prim Algorithm
-
 크루스칼 알고리즘과 프림 알고리즘은 Undirected Graph 에서 최소 신장 트리 (MST) 를 구하는 알고리즘이다. 기본적으로 Greedy 알고리즘으로, 항상 최소 가중치의 간선을 선택한다. 다만 크루스칼 알고리즘은 간선을 중심으로 최소 간선으로 연결하면서 사이클 여부를 확인하고, 프림 알고리즘은 정점들을 중심으로 정점에서 나가는 간선 중 최소 간선을 선택한다.
 
 

@@ -1,16 +1,15 @@
  
 <div class="post-header">
   <h1 class="post-title">Artificial Neural Network</h1>
-  <p class="post-date">2018-06-12</p>
+  <div class="post-date">2018-06-12</div>
   <div class="post-tags">
     <a class="post-tag">ai</a>
     <a class="post-tag">machine learning</a>
   </div>
 </div>
 
-
+<hr class="hr-small">
 <div class="body">
-<h1 id="artificial-neural-network">Artificial Neural Network</h1>
 <p>인공신경망은 뉴런의 시냅스 결합으로 네트워크를 형성한 인공 뉴런(노드)이 학습을 통해 시냅스 결합 세기를 변화시켜, 문제 해결 능력을 가지는 모델 전반을 가리킨다.</p>
 <p>인공신경망에는 지도(정답)의 입력에 의해서 문제에 최적화되어 가는 Supervised learning과 지도를 필요로 하지 않는 Unsupervised learning이 있다. 명확한 해답이 있는 경우에는 supervised learning이, 데이터 클러스터링에는 unsupervised learning이 이용된다.</p>
 <p>’인공신경망’에서 <em>망</em>은 각 시스템에 있는 여러 층의 뉴런 간의 연결을 의미한다. 예를 들어 세 층이 있는 시스템이 있다면, 첫 번째 층은 시냅스를 통해 두 번째 층의 뉴런들로 데이터를 보내는 입력 뉴런들이 있고, 더 많은 시냅스를 통해 세 번째 층의 출력 뉴런으로 신호를 보내는 식이다.</p>
@@ -96,37 +95,39 @@ w_{ij}(t+1) = w_{ij}(t) + \Delta w_{ij}(t)
 <li>제시된 입력을 이용하여 Hidden layer의 <span class="math inline">\(j\)</span>번째 뉴런으로의 입력은 다음과 같다.</li>
 </ol>
 <p><span class="math display">\[
-   Input_{pj} = \sum_{i}X_{pi}*W_{ij}-\theta_{j}
+Input_{pj} = \sum_{i}X_{pi}*W_{ij}-\theta_{j}
 \]</span></p>
-<ol type="1">
+<ol start="4" type="1">
 <li>Activation function을 사용하여 Hidden layer의 출력 <span class="math inline">\(O_{pj}\)</span> 를 계산한다.</li>
 </ol>
 <p><span class="math display">\[
-   O_{pj} = f(Input_{pj})
+O_{pj} = f(Input_{pj})
 \]</span></p>
-<ol type="1">
+<ol start="5" type="1">
 <li>Hidden layer의 출력을 이용하여 Output layer <span class="math inline">\(k\)</span>번째 뉴런으로의 입력은 다음과 같다.</li>
 </ol>
 <p><span class="math display">\[
    Input_{pk} = \sum_{j}O_{pj}*W_{jk}-\theta_{k}
 \]</span></p>
-<ol type="1">
+<ol start="6" type="1">
 <li>Activation function을 사용하여 Output layer의 출력 <span class="math inline">\(O_{pk}\)</span>를 계산한다.</li>
 </ol>
 <p><span class="math display">\[
-   O_{pk} = f(Input_{pk})
+O_{pk} = f(Input_{pk})
 \]</span></p>
-<ol type="1">
+<ol start="7" type="1">
 <li>출력 <span class="math inline">\(O_{pk}\)</span>와 목표 출력 <span class="math inline">\(d_{pk}\)</span> 값을 비교하여 <span class="math inline">\(Error \ function= E_p\)</span> 를 구한다.</li>
 </ol>
 <p><span class="math display">\[
    E_p = \frac{1}{2}\sum_{k}(d_{pk}-O_{pk})^2
 \]</span></p>
-<ol type="1">
+<ol start="8" type="1">
 <li>Neural network의 weight에 대한 gradient를 구한다. (각 가중치 <span class="math inline">\(W\)</span>에 대한 <span class="math inline">\(E_p\)</span>의 변화율)</li>
 </ol>
 <p>​</p>
-<p><img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/06/12/backpropagation_step1.png?raw=true" /></p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/06/12/backpropagation_step1.png?raw=true" alt="8-1" /><figcaption>8-1</figcaption>
+</figure>
 <p>Hidden layer의 <span class="math inline">\(j\)</span> 뉴런에서 output layer <span class="math inline">\(k\)</span> 뉴런을 연결하는 weight <span class="math inline">\(W_{jk}\)</span> 에 대한 <span class="math inline">\(E_p\)</span>의 변화율은 다음과 같다. <span class="math display">\[
   -{\partial{E_p}\over\partial{W_{jk}}} = {\partial{E_p}\over\partial{O_{pk}}}{\partial{O_{pk}}\over\partial({Input_{pk})}}{\partial({Input_{pk}})\over\partial{W_{jk}}} \ \ \ \ \ \because \mbox{chain rule}
 \]</span> <span class="math inline">\(k\)</span> 는 <span class="math inline">\(W_{jk}\)</span>의 하나의 <span class="math inline">\(k\)</span>만이 relate 되어 있으므로(하나의 <span class="math inline">\(k\)</span>만 error에 영향), <span class="math display">\[
@@ -138,30 +139,32 @@ w_{ij}(t+1) = w_{ij}(t) + \Delta w_{ij}(t)
   -{\partial{E_p}\over\partial{W_{jk}}} = (d_{pk}-O_{pk})O_{pk}(1-O_{pk})O_{pj}\\=\delta_{pk}*O_{pj} \\(\because \delta_{pk} = (d_{pk}-O_{pk})O_{pk}(1-O_{pk}))
 \]</span></p>
 <p><span class="math inline">\({\partial{E_p}\over\partial{W_{ij}}}\)</span> 는 <span class="math inline">\(W_{ij}\)</span> 가 최종 <span class="math inline">\(Loss function\)</span>에 얼마나 영향을 주는가를 나타내는 값이다.</p>
-<p><img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/06/12/backpropagation_step2.png?raw=true" /></p>
+<figure>
+<img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/06/12/backpropagation_step2.png?raw=true" alt="8-2" /><figcaption>8-2</figcaption>
+</figure>
 <p>그림에서, <span class="math inline">\(W_{ij}\)</span>는 <span class="math inline">\(Loss \ function\)</span> <span class="math inline">\(E_p\)</span>에 모든 <span class="math inline">\(k\)</span>에 대하여 영향을 준다. (relate 되어 있다). 따라서, input layer의 <span class="math inline">\(i\)</span> 뉴런에서 hidden layer <span class="math inline">\(j\)</span> 뉴런을 연결하는 weight <span class="math inline">\(W_{ij}\)</span> 에 대한 <span class="math inline">\(E_p\)</span>의 변화율은 다음과 같다. <span class="math display">\[
   -{\partial{E_p}\over\partial{W_{ij}}} = -{\partial{E_p}\over{\partial{O_{pk}}}}{\partial{O_{pk}}\over\partial{(Input_{pk})}}{\partial{(Input_{pk})}\over\partial{O_{pj}}}{\partial{O_{pj}}\over\partial{(Input_{pj})}}{\partial{(Input_{pj})}\over\partial{W_{ij}}}\\
         =\sum_{k}(d_{pk}-O_{pk}) f&#39;(Input_{pk})W_{jk}f&#39;(Input_{pj})X_{pi}\\
         =\sum_{k}\delta_{pk}*W_{jk}*f&#39;(Input_{pj})*X_{pi}
 \]</span> <span class="math inline">\(\partial{E_p}\over\partial{W_{ij}}\)</span>는 이전 단계의 backpropagation <span class="math inline">\(\delta_{pk}\)</span> 에 weight를 곱하고, 자신의 derivated activation function에 자신의 입력을 곱한 값이된다.</p>
 <p><span class="math inline">\(activation \ function\)</span> 이 sigmoid 함수일 경우, <span class="math inline">\(\partial{E_p}\over\partial{W_{ij}}\)</span> 는 다음과 같다. <span class="math display">\[
-  {\partial{E_p}\over\partial{W_{ij}}}= \sum_k(d_{pk} - O_{pk})O_{pk}(1-O_{pk})W_{jk}*O_{pj}(1-O_{pj})X_{pi}\\
+{\partial{E_p}\over\partial{W_{ij}}}= \sum_k(d_{pk} - O_{pk})O_{pk}(1-O_{pk})W_{jk}*O_{pj}(1-O_{pj})X_{pi}\\
         = \sum_k\delta_{pk}W_{jk}*O_{pj}(1-O_{pj})X_{pi}\\
         = \delta_{pj}*X_{pi}\\
         \left(\because \ \delta_{pj} = \sum_k\delta_{pk}W_{jk}*O_{pj}(1-O_{pj})\right)
 \]</span> <span class="math inline">\(\delta\)</span> 가 의미하는 바는 현재 단계의 backpropagate error이고, 이전단계의 backpropagate error * 해당 weight * 현재 뉴런의 activation function을 미분한 함수 이다) <span class="math display">\[
-  \delta_{j} = \sum\delta_{k}*W_{jk}*f&#39;_j(input_j)
+\delta_{j} = \sum\delta_{k}*W_{jk}*f&#39;_j(input_j)
 \]</span></p>
-<ol type="1">
+<ol start="9" type="1">
 <li>앞서 구한 weight에 대한 gradient를 통해 weight를 갱신한다.</li>
 </ol>
 <p><span class="math display">\[
 W_{jk}(t+1) = W_{jk}(t) + \alpha*\delta_{pk}*O_{pj}\\
    W_{ij}(t+1) = W_{ij}(t) + \alpha*\delta_{pj}*X_{pi}
 \]</span></p>
-<ol type="1">
-<li>모든 학습쌍에 대하여 전부 학습할 때 까지 2로 분기하여 반복 수행한다.</li>
-<li>출력층의 <span class="math inline">\(E_p\)</span>가 허용값 이하이거나 최대 반복횟수보다 크면 종료, 아니면 2로 분기하여 반복수행한다.</li>
+<ol start="10" type="1">
+<li><p>모든 학습쌍에 대하여 전부 학습할 때 까지 2로 분기하여 반복 수행한다.</p></li>
+<li><p>출력층의 <span class="math inline">\(E_p\)</span>가 허용값 이하이거나 최대 반복횟수보다 크면 종료, 아니면 2로 분기하여 반복수행한다.</p></li>
 </ol>
 <h2 id="hopfield-memory">Hopfield memory</h2>
 <p>Hopfield memory는 자신을 제외한 모든 뉴런과 양방향으로 상호 연결된 형태의 ANN 이다. 하나의 뉴런층에서 상호연결된 형태로, 입력벡터와 출력벡터의 차원이 동일하다. (입력과 출력이 같은 층에서 이루어 진다.) 다른 ANN과는 달리 초기 학습패턴들으로 고정된 weight값을 만들고 입력 패턴이 들어올 때 마다 이를 이용하여 학습한 패턴 정보를 연상한다.</p>
@@ -175,19 +178,19 @@ W_{jk}(t+1) = W_{jk}(t) + \alpha*\delta_{pk}*O_{pj}\\
 W_{ij} = {\begin{cases}\sum_{s=0}^{M-1}X_{i} ^{\ S}X_j^{\ S} &amp;{if \  \  (i\neq j)}\\  \\ 0 &amp; if\ (i=j)\end{cases}}\\  
    X_{i}^{\ S} \mbox{는 }s\mbox{번째 }input \ vector\mbox{의 }i\mbox{th component 를 나타낸다}
 \]</span></p>
-<ol type="1">
+<ol start="2" type="1">
 <li>입력 패턴을 Hopfield memory 에 제시한다.</li>
 </ol>
 <p><span class="math display">\[
 \mu_i (0) = x_i \ \ \ \ \ \ \ \ \  0\leq i \leq N-1
 \]</span></p>
-<ol type="1">
+<ol start="3" type="1">
 <li>뉴런들의 출력과 가중치를 곱한 값을 합하여 Activation function에 통과시킨다. (입력 패턴 행렬을 Weight 행렬과 곱한 결과를 activation function에 통과시킨 결과가 출력패턴)</li>
 </ol>
 <p><span class="math display">\[
 \mu_j(t+1) = f_b(\sum_{i=0}^{N-1}W_{ij}*\mu_i(t)) \ \ \ \ \ \ \ \ 0 \leq j \leq N-1
 \]</span></p>
-<ol type="1">
+<ol start="4" type="1">
 <li>뉴런의 출력 (<span class="math inline">\(\mu_i\)</span>) 가 변화가 없을 때 까지 3을 반복한다.</li>
 </ol>
 <h2 id="self-organizing-mapsom">Self Organizing Map(SOM)</h2>
@@ -214,16 +217,16 @@ W_{ij}\mbox{는 } i\mbox{번째 } component \mbox{에서 } j\mbox{ 뉴런으로 
 <p><span class="math display">\[
 d_j = \sum_i(X_i(t)-W_{ij}(t))^2 \ \ \  \ \ \ \ \ (j\mbox{는 출력 뉴런의 }index)
 \]</span></p>
-<ol type="1">
-<li>최소 거리를 가지는 출력 뉴런이 가장 활성화 되는 승자 뉴런(<span class="math inline">\(j^*\)</span>)</li>
-<li>승자 뉴런(<span class="math inline">\(j^*\)</span>)와 이웃 반경내의 뉴런들을 갱신한다.</li>
+<ol start="4" type="1">
+<li><p>최소 거리를 가지는 출력 뉴런이 가장 활성화 되는 승자 뉴런(<span class="math inline">\(j^*\)</span>)</p></li>
+<li><p>승자 뉴런(<span class="math inline">\(j^*\)</span>)와 이웃 반경내의 뉴런들을 갱신한다.</p></li>
 </ol>
 <p><span class="math display">\[
 W_{ij}(t+1) = W_{ij}(t) + \alpha(X_i(t)-W_{ij}(t))\ \  \ \ \ \  (j\mbox{는 }j* \mbox{와 인접한 모든 뉴런})
 \]</span></p>
-<ol type="1">
-<li>모든 입력패턴 벡터를 처리할 때 까지 2부터 다시 반복한다.</li>
-<li>이웃 반경을 감소시키면서 2~6 과정을 충분히 반복 학습시킨다.</li>
+<ol start="6" type="1">
+<li><p>모든 입력패턴 벡터를 처리할 때 까지 2부터 다시 반복한다.</p></li>
+<li><p>이웃 반경을 감소시키면서 2~6 과정을 충분히 반복 학습시킨다.</p></li>
 </ol> 
 </div>
 

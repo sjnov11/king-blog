@@ -6,9 +6,6 @@ date: 2018-10-01
 categories: data-structure
 tags: [data structure]
 ---
-
-# Heap and Heap Sort
-
 ## What is Heap?
 
 - **최댓값 및 최솟값**을 찾아내는 연산을 빠르게 하기 위해 고안된 자료구조

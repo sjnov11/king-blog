@@ -1,15 +1,14 @@
  
 <div class="post-header">
   <h1 class="post-title">위상 정렬(Topological Sort)</h1>
-  <p class="post-date">2018-09-29</p>
+  <div class="post-date">2018-09-29</div>
   <div class="post-tags">
     <a class="post-tag">algorithm</a>
   </div>
 </div>
 
-
+<hr class="hr-small">
 <div class="body">
-<h1 id="topological-sort">Topological Sort</h1>
 <p><strong>위상 정렬</strong>은 사이클이 없는 방향 그래프(<strong>DAG</strong>: Directed Acyclic Graph) 에서 방향성을 거스리지 않게 정점(vertex)들을 나열하는 알고리즘이다.</p>
 <p><img src="https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/09/29/topological_sort1.png?raw=true" /></p>
 <p>위 그래프는 사이클이 없는 방향 그래프(DAG) 이다. 정점 4에 정점 1과 정점 2가 연결되어 있는데, 이는 1과 2가 4보다 먼저 나오도록 정렬해야함을 의미한다. 일반화 하면, 간선 <strong><em>(u, v)</em></strong> 가 있을 경우 정점 <strong>u</strong> 는 정점 <strong>v</strong> 보다 항상 먼저 나와야한다.</p>

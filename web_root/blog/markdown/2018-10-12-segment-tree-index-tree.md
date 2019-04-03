@@ -6,9 +6,6 @@ date: 2018-10-12
 categories: data-structure
 tags: [data structure]
 ---
-
-# Segment and Index Tree
-
 **세그먼트 트리(Segment Tree)** 또는 **인덱스 트리(Index Tree)**는 보통 다음 연산을 효율적으로 처리하기 위한 자료구조이다.
 
 수열(시퀀스) $\{a_n\}$ 이 주어졌을 때, 다음 연산이 연속적으로 일어난다.

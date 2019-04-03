@@ -6,9 +6,6 @@ date: 2018-10-02
 categories: algorithm
 tags: [algorithm]
 ---
-
-# Union-Find and Graph Cycle Detection
-
 ## Union-Find
 
 Union-Find는 서로소 집합(disjoint set)을 관리하는 자료구조이다. Union-Find는 이름처럼 다음 두 가지 연산을 가지고 있다.

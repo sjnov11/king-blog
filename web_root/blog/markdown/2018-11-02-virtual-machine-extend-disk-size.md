@@ -6,9 +6,6 @@ date: 2018-11-02
 categories: Linux
 tags: [linux]
 ---
-
-# Virtual machine 디스크 공간 늘이기
-
 VirtualBox는 기본적으로 guest OS의 디스크 용량을 8GB로 동적 할당합니다. 동적 할당 설정을 해 둔다면 guest OS의 사용량만큼 host의 디스크를 사용하기 때문에 VirtualBox의 설정을 가급적 크게 설정하는 것을 권합니다. 
 
 충분한 크기의 디스크 용량으로 설정하지 않았을 경우, guest OS에서의 디스크 공간이 부족해 이를 확장해야하는 경우가 발생합니다. 이 때, 어떻게 guest OS의 디스크 공간 늘이는 지 그 방법에 대해서 알아보겠습니다.

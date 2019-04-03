@@ -6,9 +6,6 @@ date: 2018-10-02
 categories: linux
 tags: [linux]
 ---
-
-# PuTTY로 Virtual Machine OS에 SSH 연결하기
-
 Virtual Machine에서 guest OS를 돌릴 때 여러 불편한 점이 있습니다. 대표적으로, 지나치게 버벅거리는 현상과 host OS와의 interaction이 불편한 점 등을 들 수 있겠네요. host에서 VM으로 원격 접속하여 위 문제를 해결할 수 있습니다. 이 글에서는 다음 환경에서 실행하였습니다.
 
 *[실행환경]*

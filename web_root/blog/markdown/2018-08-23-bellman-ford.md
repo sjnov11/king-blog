@@ -6,9 +6,6 @@ date: 2018-08-23
 categories: algorithm
 tags: [algorithm]
 ---
-
-# Bellman-Ford Algorithm
-
 벨만-포드 알고리즘은 최단 경로를 구하는 대표적인 알고리즘 중 하나이다. 
 
 다익스트라와 마찬가지로 relaxation 과정을 통해 최단 경로를 구한다. relaxation이란, 점진적으로 더 정확한 값으로 변경해나가면서 마지막에 optimal solution 에 도달하는 것을 말한다. 최단 경로의 relaxation 과정은 다음과 같다.

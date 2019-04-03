@@ -7,9 +7,6 @@ abstract: king
 categories: spring
 tags: [spring, batch]
 ---
-
-# [Spring Batch] Architecture
-
 Spring batch의 Architecture는 아래 그림과 같이 **Application, Batch Core, Batch Infrastructure** 로 구성되어 있다.
 
 ![architecture](https://www.tutorialspoint.com/spring_batch/images/architecture.jpg)

@@ -6,9 +6,6 @@ date: 2018-09-29
 categories: algorithm
 tags: [algorithm]
 ---
-
-# Topological Sort
-
 **위상 정렬**은 사이클이 없는 방향 그래프(**DAG**: Directed Acyclic Graph) 에서 방향성을 거스리지 않게 정점(vertex)들을 나열하는 알고리즘이다. 
 
 

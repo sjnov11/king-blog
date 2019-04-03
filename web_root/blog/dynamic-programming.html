@@ -1,15 +1,14 @@
  
 <div class="post-header">
   <h1 class="post-title">동적계획법(Dynamic Programming)</h1>
-  <p class="post-date">2018-08-26</p>
+  <div class="post-date">2018-08-26</div>
   <div class="post-tags">
     <a class="post-tag">algorithm</a>
   </div>
 </div>
 
-
+<hr class="hr-small">
 <div class="body">
-<h1 id="dynamic-programming">Dynamic Programming</h1>
 <p>다이나믹 프로그래밍 문제는 기본적으로 주어진 큰 문제를 바로 풀기 어렵기 때문에 <strong><em>큰 문제를 작은 문제로 나눠서 푸는 알고리즘</em></strong> 이다. 예를 들어, 피보나치 수열을 구하는 문제(<span class="math inline">\(F_n = F_{n-1} +F_{n-2}\)</span>)를 살펴보자. 우리는 <span class="math inline">\(F_n\)</span> 을 구하기 위해 <span class="math inline">\(F_{n-1}\)</span> 과 <span class="math inline">\(F_{n-2}\)</span> 라는 작은 문제로 나눈다. 작은 문제들을 먼저 푼 다음, 이들의 합으로 큰 문제의 답을 구한다. 여기서 큰 문제와 작은 문제를 같은 방법으로 풀 수 있다. 다이나믹 프로그래밍 문제는 아래의 두가지 속성을 만족한다.</p>
 <p><em>1. Overlapping Subproblem</em> <em>2. Optimal Substructure</em></p>
 <h2 id="overlapping-subproblem">Overlapping Subproblem</h2>

@@ -6,9 +6,6 @@ date: 2018-11-26
 categories: spring
 tags: [spring, batch]
 ---
-
-# [Spring Batch] Application
-
 Spring Batch는 기본적으로 아래 파일들로 구성되어 있다:
 
 - Configuration file 

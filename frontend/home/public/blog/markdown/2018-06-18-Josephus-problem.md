@@ -6,9 +6,6 @@ date: 2018-06-18
 categories: algorithm
 tags: [algorithm]
 ---
-
-# Josephus Problem
-
  Josephus Problem은 유대 역사가 Josephus 의 이야기에서 유래되었다고 합니다. 당시 유대인 지도자 Josephus와 그의 추종자들은 로마의 지배에 맞서 싸웠지만, 위기에 처하자 동굴로 숨어들어 명예롭게 자결하기로 결정합니다.
 
 >   *"Josephus 와 그의 병사 총 41명은 원형으로 둘러 앉아 남은 사람이 없을 때 까지 세번째 사람마다 죽이기로 했다. Joshphus는 막상 죽음에 직면하자 살고싶은 마음에서 마지막에 살아남을 수 있는 자리를 찾아내, 살아남은 다음 로마병사들에게 항복했다고 한다."*

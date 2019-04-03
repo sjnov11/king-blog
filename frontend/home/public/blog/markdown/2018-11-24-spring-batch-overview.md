@@ -6,9 +6,6 @@ date: 2018-11-24
 categories: spring
 tags: [spring, batch]
 ---
-
-# [Spring Batch] Overview
-
 ## What is Batch Processing?
 
 **Batch processing** 이란 일련의 자동화된 complex job 을 user interaction 없이 수행하는 것이다. 일반적으로 batch process는 **대용량의 data와 지속실행**이 특징이다.

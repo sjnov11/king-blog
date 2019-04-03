@@ -7,15 +7,14 @@ categories: ai
 tags: [ai, machine learning]
 ---
 
-# Artificial Neural Network
 
- 인공신경망은 뉴런의 시냅스 결합으로 네트워크를 형성한 인공 뉴런(노드)이 학습을 통해 시냅스 결합 세기를 변화시켜, 문제 해결 능력을 가지는 모델 전반을 가리킨다.  
+인공신경망은 뉴런의 시냅스 결합으로 네트워크를 형성한 인공 뉴런(노드)이 학습을 통해 시냅스 결합 세기를 변화시켜, 문제 해결 능력을 가지는 모델 전반을 가리킨다.  
 
- 인공신경망에는 지도(정답)의 입력에 의해서 문제에 최적화되어 가는 Supervised learning과 지도를 필요로 하지 않는 Unsupervised learning이 있다. 명확한 해답이 있는 경우에는 supervised learning이, 데이터 클러스터링에는 unsupervised learning이 이용된다.  
+인공신경망에는 지도(정답)의 입력에 의해서 문제에 최적화되어 가는 Supervised learning과 지도를 필요로 하지 않는 Unsupervised learning이 있다. 명확한 해답이 있는 경우에는 supervised learning이, 데이터 클러스터링에는 unsupervised learning이 이용된다.  
 
  '인공신경망'에서 *망*은 각 시스템에 있는 여러 층의 뉴런 간의 연결을 의미한다. 예를 들어 세 층이 있는 시스템이 있다면, 첫 번째 층은 시냅스를 통해 두 번째 층의 뉴런들로 데이터를 보내는 입력 뉴런들이 있고, 더 많은 시냅스를 통해 세 번째 층의 출력 뉴런으로 신호를 보내는 식이다.  
 
- 인공신경망은 보통 세 가지의 인자를 이용해 정의된다.
+인공신경망은 보통 세 가지의 인자를 이용해 정의된다.
 
 1. 다른 층의 뉴런들 사이의 연결 패턴
 2. 연결의 가중치를 갱신하는 학습 과정
@@ -142,38 +141,38 @@ $$
 3. 제시된 입력을 이용하여 Hidden layer의 $j$번째 뉴런으로의 입력은 다음과 같다.
 
 $$
-   Input_{pj} = \sum_{i}X_{pi}*W_{ij}-\theta_{j}
+Input_{pj} = \sum_{i}X_{pi}*W_{ij}-\theta_{j}
 $$
 
-1. Activation function을 사용하여 Hidden layer의 출력 $O_{pj}$ 를 계산한다.
+4. Activation function을 사용하여 Hidden layer의 출력 $O_{pj}$ 를 계산한다.
 
 $$
-   O_{pj} = f(Input_{pj})
+O_{pj} = f(Input_{pj})
 $$
 
-1. Hidden layer의 출력을 이용하여 Output layer $k$번째 뉴런으로의 입력은 다음과 같다.
+5. Hidden layer의 출력을 이용하여 Output layer $k$번째 뉴런으로의 입력은 다음과 같다.
 
 $$
    Input_{pk} = \sum_{j}O_{pj}*W_{jk}-\theta_{k}
 $$
 
-1. Activation function을 사용하여 Output layer의 출력 $O_{pk}$를 계산한다.
+6. Activation function을 사용하여 Output layer의 출력 $O_{pk}$를 계산한다.
 
 $$
-   O_{pk} = f(Input_{pk})
+O_{pk} = f(Input_{pk})
 $$
 
-1. 출력 $O_{pk}$와 목표 출력 $d_{pk}$ 값을 비교하여 $Error \ function= E_p$  를 구한다.
+7. 출력 $O_{pk}$와 목표 출력 $d_{pk}$ 값을 비교하여 $Error \ function= E_p$  를 구한다.
 
 $$
    E_p = \frac{1}{2}\sum_{k}(d_{pk}-O_{pk})^2
 $$
 
-1. Neural network의 weight에 대한 gradient를 구한다. (각 가중치 $W$에 대한 $E_p$의 변화율)
+8. Neural network의 weight에 대한 gradient를 구한다. (각 가중치 $W$에 대한 $E_p$의 변화율)
 
   ​    
 
-   ![](https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/06/12/backpropagation_step1.png?raw=true)
+   ![8-1](https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/06/12/backpropagation_step1.png?raw=true)
 
    Hidden layer의 $j$ 뉴런에서 output layer $k$ 뉴런을 연결하는 weight $W_{jk}$ 에 대한 $E_p$의 변화율은 다음과 같다.
 $$
@@ -196,7 +195,7 @@ $$
 
   
 
-  ![](https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/06/12/backpropagation_step2.png?raw=true)
+  ![8-2](https://github.com/sjnov11/sjnov11.github.com/blob/master/_img/2018/06/12/backpropagation_step2.png?raw=true)
 
   
 
@@ -210,17 +209,17 @@ $$
 
    $activation \ function$ 이 sigmoid 함수일 경우, $\partial{E_p}\over\partial{W_{ij}}$ 는 다음과 같다.
 $$
-  {\partial{E_p}\over\partial{W_{ij}}}= \sum_k(d_{pk} - O_{pk})O_{pk}(1-O_{pk})W_{jk}*O_{pj}(1-O_{pj})X_{pi}\\
+{\partial{E_p}\over\partial{W_{ij}}}= \sum_k(d_{pk} - O_{pk})O_{pk}(1-O_{pk})W_{jk}*O_{pj}(1-O_{pj})X_{pi}\\
         = \sum_k\delta_{pk}W_{jk}*O_{pj}(1-O_{pj})X_{pi}\\
         = \delta_{pj}*X_{pi}\\
         \left(\because \ \delta_{pj} = \sum_k\delta_{pk}W_{jk}*O_{pj}(1-O_{pj})\right)
 $$
    $\delta$ 가 의미하는 바는 현재 단계의 backpropagate error이고, 이전단계의 backpropagate error * 해당 weight * 현재 뉴런의 activation function을 미분한 함수 이다) 
 $$
-  \delta_{j} = \sum\delta_{k}*W_{jk}*f'_j(input_j)
+\delta_{j} = \sum\delta_{k}*W_{jk}*f'_j(input_j)
 $$
 
-1. 앞서 구한 weight에 대한 gradient를 통해 weight를 갱신한다.
+9. 앞서 구한 weight에 대한 gradient를 통해 weight를 갱신한다.
 
 
 $$
@@ -228,9 +227,9 @@ W_{jk}(t+1) = W_{jk}(t) + \alpha*\delta_{pk}*O_{pj}\\
    W_{ij}(t+1) = W_{ij}(t) + \alpha*\delta_{pj}*X_{pi}
 $$
 
+10. 모든 학습쌍에 대하여 전부 학습할 때 까지 2로 분기하여 반복 수행한다.
 
-1. 모든 학습쌍에 대하여 전부 학습할 때 까지 2로 분기하여 반복 수행한다.
-2. 출력층의 $E_p$가 허용값 이하이거나 최대 반복횟수보다 크면 종료, 아니면 2로 분기하여 반복수행한다.
+11. 출력층의 $E_p$가 허용값 이하이거나 최대 반복횟수보다 크면 종료, 아니면 2로 분기하여 반복수행한다.
 
 
 
@@ -243,8 +242,6 @@ $$
  Hopfield memory는 network의 크기에 따라서 학습되는 패턴 수가 제한되어 있다. 보통 뉴런의 수가 N개 일 때, 0.15N개의 패턴을 기억할 수 있다. 수렴된 결과가 최적인지 보장을 할 수 없다는 문제점도 갖고 있다.
 
  
-
-
 
 ### Learning
 
@@ -260,24 +257,21 @@ W_{ij} = {\begin{cases}\sum_{s=0}^{M-1}X_{i} ^{\ S}X_j^{\ S} &{if \  \  (i\neq j
    X_{i}^{\ S} \mbox{는 }s\mbox{번째 }input \ vector\mbox{의 }i\mbox{th component 를 나타낸다}
 $$
 
-
-1. 입력 패턴을 Hopfield memory 에 제시한다.
+2. 입력 패턴을 Hopfield memory 에 제시한다.
 
 
 $$
 \mu_i (0) = x_i \ \ \ \ \ \ \ \ \  0\leq i \leq N-1
 $$
 
-
-1. 뉴런들의 출력과 가중치를 곱한 값을 합하여 Activation function에 통과시킨다. (입력 패턴 행렬을 Weight 행렬과 곱한 결과를 activation function에 통과시킨 결과가 출력패턴)
+3. 뉴런들의 출력과 가중치를 곱한 값을 합하여 Activation function에 통과시킨다. (입력 패턴 행렬을 Weight 행렬과 곱한 결과를 activation function에 통과시킨 결과가 출력패턴)
 
 
 $$
 \mu_j(t+1) = f_b(\sum_{i=0}^{N-1}W_{ij}*\mu_i(t)) \ \ \ \ \ \ \ \ 0 \leq j \leq N-1
 $$
 
-
-1. 뉴런의 출력 ($\mu_i$) 가 변화가 없을 때 까지 3을 반복한다.
+4. 뉴런의 출력 ($\mu_i$) 가 변화가 없을 때 까지 3을 반복한다.
 
 
 
@@ -326,15 +320,15 @@ $$
 d_j = \sum_i(X_i(t)-W_{ij}(t))^2 \ \ \  \ \ \ \ \ (j\mbox{는 출력 뉴런의 }index)
 $$
 
+4. 최소 거리를 가지는 출력 뉴런이 가장 활성화 되는 승자 뉴런($j^*$)
 
-1. 최소 거리를 가지는 출력 뉴런이 가장 활성화 되는 승자 뉴런($j^*$)
-2. 승자 뉴런($j^*$)와 이웃 반경내의 뉴런들을 갱신한다.
+5. 승자 뉴런($j^*$)와 이웃 반경내의 뉴런들을 갱신한다.
 
 
 $$
 W_{ij}(t+1) = W_{ij}(t) + \alpha(X_i(t)-W_{ij}(t))\ \  \ \ \ \  (j\mbox{는 }j* \mbox{와 인접한 모든 뉴런})
 $$
 
+6. 모든 입력패턴 벡터를 처리할 때 까지 2부터 다시 반복한다.
 
-1. 모든 입력패턴 벡터를 처리할 때 까지 2부터 다시 반복한다.
-2. 이웃 반경을 감소시키면서 2~6 과정을 충분히 반복 학습시킨다.
+7. 이웃 반경을 감소시키면서 2~6 과정을 충분히 반복 학습시킨다.

@@ -6,9 +6,6 @@ date: 2018-10-15
 categories: algorithm
 tags: [algorithm]
 ---
-
-# Divide and Conquer Examples
-
 ## 1. Binary Search
 
 ```c++
